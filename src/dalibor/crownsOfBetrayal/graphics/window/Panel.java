@@ -1,8 +1,7 @@
-package dalibor.survivalGame.graphics.window;
+package dalibor.crownsOfBetrayal.graphics.window;
 
-import dalibor.survivalGame.listeners.GameKeyListener;
-import dalibor.survivalGame.listeners.GameMouseListener;
-import dalibor.survivalGame.main.Game;
+import dalibor.crownsOfBetrayal.listeners.GameMouseListener;
+import dalibor.crownsOfBetrayal.main.Game;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,9 +12,8 @@ public class Panel extends JPanel {
 
     public Panel(Game game) {
         this.game = game;
-        this.setPreferredSize(new Dimension(this.game.getGameWidth(), this.game.getGameHeight()));
+        this.setPreferredSize(new Dimension(this.game.getWidth(), this.game.getHeight()));
         this.addMouseListener(new GameMouseListener(this));
-        this.addKeyListener(new GameKeyListener(this));
         this.setFocusable(true);
         this.setLayout(null);
     }
@@ -23,6 +21,7 @@ public class Panel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2D = (Graphics2D) g;
         this.game.render(g2D);
     }

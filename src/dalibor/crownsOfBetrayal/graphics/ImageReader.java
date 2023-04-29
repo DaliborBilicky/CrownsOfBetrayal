@@ -1,4 +1,4 @@
-package dalibor.survivalGame.graphics;
+package dalibor.crownsOfBetrayal.graphics;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

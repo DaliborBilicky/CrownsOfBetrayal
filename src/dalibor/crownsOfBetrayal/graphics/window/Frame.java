@@ -1,6 +1,6 @@
-package dalibor.survivalGame.graphics.window;
+package dalibor.crownsOfBetrayal.graphics.window;
 
-import dalibor.survivalGame.main.Game;
+import dalibor.crownsOfBetrayal.main.Game;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;

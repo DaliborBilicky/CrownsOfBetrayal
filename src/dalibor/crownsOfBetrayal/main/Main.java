@@ -1,4 +1,4 @@
-package dalibor.survivalGame.main;
+package dalibor.crownsOfBetrayal.main;
 
 public class Main {
     public static void main(String[] args) {
