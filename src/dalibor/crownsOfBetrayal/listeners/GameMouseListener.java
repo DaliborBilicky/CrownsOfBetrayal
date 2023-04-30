@@ -20,13 +20,12 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
                 this.panel.getGame().getGameMenu().mouseClicked(e);
             case INVENTORY ->
                 this.panel.getGame().getInventory().mouseClicked(e);
-            case PUB -> this.panel.getGame().getPup().mouseClicked(e);
+            case PUB -> this.panel.getGame().getPub().mouseClicked(e);
             case SHOP -> this.panel.getGame().getShop().mouseClicked(e);
             case WORLD_MAP ->
                 this.panel.getGame().getWorldMap().mouseClicked(e);
             case QUESTS -> this.panel.getGame().getQuests().mouseClicked(e);
-            case SKILL_SHOP ->
-                this.panel.getGame().getSkillShop().mouseClicked(e);
+            case CRAFTING -> this.panel.getGame().getCrafting().mouseClicked(e);
         }
     }
 
@@ -37,12 +36,11 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case GAME_MENU -> this.panel.getGame().getGameMenu().mosePressed(e);
             case INVENTORY ->
                 this.panel.getGame().getInventory().mosePressed(e);
-            case PUB -> this.panel.getGame().getPup().mosePressed(e);
+            case PUB -> this.panel.getGame().getPub().mosePressed(e);
             case SHOP -> this.panel.getGame().getShop().mosePressed(e);
             case WORLD_MAP -> this.panel.getGame().getWorldMap().mosePressed(e);
             case QUESTS -> this.panel.getGame().getQuests().mosePressed(e);
-            case SKILL_SHOP ->
-                this.panel.getGame().getSkillShop().mosePressed(e);
+            case CRAFTING -> this.panel.getGame().getCrafting().mosePressed(e);
         }
     }
 
@@ -54,13 +52,12 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
                 this.panel.getGame().getGameMenu().moseReleased(e);
             case INVENTORY ->
                 this.panel.getGame().getInventory().moseReleased(e);
-            case PUB -> this.panel.getGame().getPup().moseReleased(e);
+            case PUB -> this.panel.getGame().getPub().moseReleased(e);
             case SHOP -> this.panel.getGame().getShop().moseReleased(e);
             case WORLD_MAP ->
                 this.panel.getGame().getWorldMap().moseReleased(e);
             case QUESTS -> this.panel.getGame().getQuests().moseReleased(e);
-            case SKILL_SHOP ->
-                this.panel.getGame().getSkillShop().moseReleased(e);
+            case CRAFTING -> this.panel.getGame().getCrafting().moseReleased(e);
         }
     }
 
@@ -85,12 +82,11 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case MENU -> this.panel.getGame().getMenu().mouseMoved(e);
             case GAME_MENU -> this.panel.getGame().getGameMenu().mouseMoved(e);
             case INVENTORY -> this.panel.getGame().getInventory().mouseMoved(e);
-            case PUB -> this.panel.getGame().getPup().mouseMoved(e);
+            case PUB -> this.panel.getGame().getPub().mouseMoved(e);
             case SHOP -> this.panel.getGame().getShop().mouseMoved(e);
             case WORLD_MAP -> this.panel.getGame().getWorldMap().mouseMoved(e);
             case QUESTS -> this.panel.getGame().getQuests().mouseMoved(e);
-            case SKILL_SHOP ->
-                this.panel.getGame().getSkillShop().mouseMoved(e);
+            case CRAFTING -> this.panel.getGame().getCrafting().mouseMoved(e);
         }
     }
 }

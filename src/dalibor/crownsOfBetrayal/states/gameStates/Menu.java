@@ -1,4 +1,4 @@
-package dalibor.crownsOfBetrayal.states.menuStates;
+package dalibor.crownsOfBetrayal.states.gameStates;
 
 import dalibor.crownsOfBetrayal.graphics.ImageReader;
 import dalibor.crownsOfBetrayal.graphics.ui.Button;
@@ -51,7 +51,6 @@ public class Menu extends State {
 
     @Override
     public void update() {
-
     }
 
     @Override
@@ -69,6 +68,7 @@ public class Menu extends State {
         for (Button button : this.buttons) {
             if (button.getButtonBounds().contains(event.getX(), event.getY())) {
                 button.applyState();
+                button.setMouseIn(false);
             }
         }
     }

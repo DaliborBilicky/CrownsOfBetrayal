@@ -2,14 +2,14 @@ package dalibor.crownsOfBetrayal.main;
 
 import dalibor.crownsOfBetrayal.graphics.window.Frame;
 import dalibor.crownsOfBetrayal.states.CurrentState;
+import dalibor.crownsOfBetrayal.states.gameStates.Crafting;
 import dalibor.crownsOfBetrayal.states.gameStates.GameMenu;
 import dalibor.crownsOfBetrayal.states.gameStates.Inventory;
+import dalibor.crownsOfBetrayal.states.gameStates.Menu;
 import dalibor.crownsOfBetrayal.states.gameStates.Pub;
 import dalibor.crownsOfBetrayal.states.gameStates.Quests;
 import dalibor.crownsOfBetrayal.states.gameStates.Shop;
-import dalibor.crownsOfBetrayal.states.gameStates.SkillShop;
 import dalibor.crownsOfBetrayal.states.gameStates.WorldMap;
-import dalibor.crownsOfBetrayal.states.menuStates.Menu;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
@@ -30,7 +30,7 @@ public class Game implements Runnable {
     private final Pub pub;
     private final Quests quests;
     private final Shop shop;
-    private final SkillShop skillShop;
+    private final Crafting crafting;
     private final WorldMap worldMap;
 
     public Game() {
@@ -44,8 +44,8 @@ public class Game implements Runnable {
         this.quests =
             new Quests(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.shop = new Shop(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
-        this.skillShop =
-            new SkillShop(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
+        this.crafting =
+            new Crafting(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.worldMap =
             new WorldMap(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -107,7 +107,7 @@ public class Game implements Runnable {
             case SHOP -> this.shop.update();
             case WORLD_MAP -> this.worldMap.update();
             case QUESTS -> this.quests.update();
-            case SKILL_SHOP -> this.skillShop.update();
+            case CRAFTING -> this.crafting.update();
         }
     }
 
@@ -120,7 +120,7 @@ public class Game implements Runnable {
             case SHOP -> this.shop.draw(g2D);
             case WORLD_MAP -> this.worldMap.draw(g2D);
             case QUESTS -> this.quests.draw(g2D);
-            case SKILL_SHOP -> this.skillShop.draw(g2D);
+            case CRAFTING -> this.crafting.draw(g2D);
         }
     }
 
@@ -140,7 +140,7 @@ public class Game implements Runnable {
         return this.inventory;
     }
 
-    public Pub getPup() {
+    public Pub getPub() {
         return this.pub;
     }
 
@@ -152,8 +152,8 @@ public class Game implements Runnable {
         return this.shop;
     }
 
-    public SkillShop getSkillShop() {
-        return this.skillShop;
+    public Crafting getCrafting() {
+        return this.crafting;
     }
 
     public WorldMap getWorldMap() {

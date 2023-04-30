@@ -7,9 +7,8 @@ public enum States {
     MENU,
     PUB,
     QUESTS,
-    SETTINGS,
     SHOP,
-    SKILL_SHOP,
+    CRAFTING,
     WORLD_MAP;
 
 }
