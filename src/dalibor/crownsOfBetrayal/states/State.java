@@ -29,6 +29,8 @@ public abstract class State {
 
     public abstract void mouseClicked(MouseEvent event);
 
+    public abstract void mouseMoved(MouseEvent event);
+
     public int getWindowWidth() {
         return windowWidth;
     }

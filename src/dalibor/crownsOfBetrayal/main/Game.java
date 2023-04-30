@@ -4,13 +4,12 @@ import dalibor.crownsOfBetrayal.graphics.window.Frame;
 import dalibor.crownsOfBetrayal.states.CurrentState;
 import dalibor.crownsOfBetrayal.states.gameStates.GameMenu;
 import dalibor.crownsOfBetrayal.states.gameStates.Inventory;
-import dalibor.crownsOfBetrayal.states.gameStates.Pup;
+import dalibor.crownsOfBetrayal.states.gameStates.Pub;
 import dalibor.crownsOfBetrayal.states.gameStates.Quests;
 import dalibor.crownsOfBetrayal.states.gameStates.Shop;
 import dalibor.crownsOfBetrayal.states.gameStates.SkillShop;
 import dalibor.crownsOfBetrayal.states.gameStates.WorldMap;
 import dalibor.crownsOfBetrayal.states.menuStates.Menu;
-import dalibor.crownsOfBetrayal.states.menuStates.Settings;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
@@ -28,12 +27,11 @@ public class Game implements Runnable {
     private final Menu menu;
     private final GameMenu gameMenu;
     private final Inventory inventory;
-    private final Pup pup;
+    private final Pub pub;
     private final Quests quests;
     private final Shop shop;
     private final SkillShop skillShop;
     private final WorldMap worldMap;
-    private final Settings settings;
 
     public Game() {
         this.currentState = new CurrentState();
@@ -42,7 +40,7 @@ public class Game implements Runnable {
             new GameMenu(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.inventory =
             new Inventory(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
-        this.pup = new Pup(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
+        this.pub = new Pub(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.quests =
             new Quests(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.shop = new Shop(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -50,8 +48,6 @@ public class Game implements Runnable {
             new SkillShop(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
         this.worldMap =
             new WorldMap(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
-        this.settings =
-            new Settings(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
 
         this.frame = new Frame(this);
     }
@@ -107,12 +103,11 @@ public class Game implements Runnable {
             case MENU -> this.menu.update();
             case GAME_MENU -> this.gameMenu.update();
             case INVENTORY -> this.inventory.update();
-            case PUP -> this.pup.update();
+            case PUB -> this.pub.update();
             case SHOP -> this.shop.update();
             case WORLD_MAP -> this.worldMap.update();
             case QUESTS -> this.quests.update();
             case SKILL_SHOP -> this.skillShop.update();
-            case SETTINGS -> this.settings.update();
         }
     }
 
@@ -121,12 +116,11 @@ public class Game implements Runnable {
             case MENU -> this.menu.draw(g2D);
             case GAME_MENU -> this.gameMenu.draw(g2D);
             case INVENTORY -> this.inventory.draw(g2D);
-            case PUP -> this.pup.draw(g2D);
+            case PUB -> this.pub.draw(g2D);
             case SHOP -> this.shop.draw(g2D);
             case WORLD_MAP -> this.worldMap.draw(g2D);
             case QUESTS -> this.quests.draw(g2D);
             case SKILL_SHOP -> this.skillShop.draw(g2D);
-            case SETTINGS -> this.settings.draw(g2D);
         }
     }
 
@@ -142,16 +136,12 @@ public class Game implements Runnable {
         return this.gameMenu;
     }
 
-    public Frame getFrame() {
-        return this.frame;
-    }
-
     public Inventory getInventory() {
         return this.inventory;
     }
 
-    public Pup getPup() {
-        return this.pup;
+    public Pub getPup() {
+        return this.pub;
     }
 
     public Quests getQuests() {
@@ -168,10 +158,6 @@ public class Game implements Runnable {
 
     public WorldMap getWorldMap() {
         return this.worldMap;
-    }
-
-    public Settings getSettings() {
-        return this.settings;
     }
 
     public int getWidth() {

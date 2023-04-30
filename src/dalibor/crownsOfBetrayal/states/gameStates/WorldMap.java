@@ -29,4 +29,9 @@ public class WorldMap extends State {
     public void mouseClicked(MouseEvent event) {
 
     }
+
+    @Override
+    public void mouseMoved(MouseEvent event) {
+
+    }
 }

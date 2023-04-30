@@ -11,9 +11,11 @@ public class Panel extends JPanel {
     private final Game game;
 
     public Panel(Game game) {
+        GameMouseListener gML = new GameMouseListener(this);
         this.game = game;
         this.setPreferredSize(new Dimension(this.game.getWidth(), this.game.getHeight()));
-        this.addMouseListener(new GameMouseListener(this));
+        this.addMouseListener(gML);
+        this.addMouseMotionListener(gML);
         this.setFocusable(true);
         this.setLayout(null);
     }

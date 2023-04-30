@@ -12,6 +12,9 @@ public class CurrentState {
     }
 
     public void setState(States states) {
+        if (states.name().equals(States.EXIT.name())) {
+            System.exit(0);
+        }
         this.states = states;
     }
 }

@@ -1,14 +1,15 @@
 package dalibor.crownsOfBetrayal.states;
 
 public enum States {
-    MENU,
+    EXIT,
     GAME_MENU,
     INVENTORY,
-    PUP,
-    SHOP,
-    WORLD_MAP,
+    MENU,
+    PUB,
     QUESTS,
+    SETTINGS,
+    SHOP,
     SKILL_SHOP,
-    SETTINGS;
+    WORLD_MAP;
 
 }
