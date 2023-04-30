@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 public class WorldMap extends State {
     public WorldMap(CurrentState currentState, int windowWidth, int windowHeight) {
-        super(currentState, new ImageReader().getBufferedImage("res/bg/bg.png"), windowWidth, windowHeight);
+        super(currentState, new ImageReader().getBufferedImage("res/bg/world_map.png"), windowWidth, windowHeight);
     }
 
     @Override

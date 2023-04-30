@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 public class Crafting extends State {
     public Crafting(CurrentState currentState, int windowWidth, int windowHeight) {
-        super(currentState, new ImageReader().getBufferedImage("res/bg/bg.png"), windowWidth, windowHeight);
+        super(currentState, new ImageReader().getBufferedImage("res/bg/crafting.png"), windowWidth, windowHeight);
     }
 
 

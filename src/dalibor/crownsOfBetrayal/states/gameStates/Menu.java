@@ -2,6 +2,7 @@ package dalibor.crownsOfBetrayal.states.gameStates;
 
 import dalibor.crownsOfBetrayal.graphics.ImageReader;
 import dalibor.crownsOfBetrayal.graphics.ui.Button;
+import dalibor.crownsOfBetrayal.graphics.ui.LabelButton;
 import dalibor.crownsOfBetrayal.states.CurrentState;
 import dalibor.crownsOfBetrayal.states.State;
 import dalibor.crownsOfBetrayal.states.States;
@@ -9,30 +10,30 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 public class Menu extends State {
-    private final Button[] buttons;
+    private final LabelButton[] buttons;
 
     public Menu(CurrentState currentState, int windowWidth, int windowHeight) {
         super(currentState, new ImageReader().getBufferedImage("res/bg/menu.png"), windowWidth, windowHeight);
-        this.buttons = new Button[3];
+        this.buttons = new LabelButton[3];
         this.setButtons();
     }
 
     private void setButtons() {
-        this.buttons[0] = new Button(
+        this.buttons[0] = new LabelButton(
             this.getWindowWidth() / 2,
             (int) (this.getWindowHeight() * 0.47),
             520,
             100,
             States.GAME_MENU,
             this.getCurrentState());
-        this.buttons[1] = new Button(
+        this.buttons[1] = new LabelButton(
             this.getWindowWidth() / 2,
             (int) (this.getWindowHeight() * 0.645),
             520,
             100,
             States.GAME_MENU,
             this.getCurrentState());
-        this.buttons[2] = new Button(
+        this.buttons[2] = new LabelButton(
             this.getWindowWidth() / 2,
             (int) (this.getWindowHeight() * 0.82),
             520,
@@ -65,7 +66,7 @@ public class Menu extends State {
 
     @Override
     public void mouseClicked(MouseEvent event) {
-        for (Button button : this.buttons) {
+        for (LabelButton button : this.buttons) {
             if (button.getButtonBounds().contains(event.getX(), event.getY())) {
                 button.applyState();
                 button.setMouseIn(false);

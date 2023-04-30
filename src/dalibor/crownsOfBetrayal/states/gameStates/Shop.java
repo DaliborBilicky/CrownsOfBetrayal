@@ -33,7 +33,7 @@ public class Shop extends State {
             this.getCurrentState().setState(States.GAME_MENU);
         }
     }
-t
+
     @Override
     public void mouseMoved(MouseEvent event) {
 
