@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 
 public class Inventory extends State {
     public Inventory(CurrentState currentState, int windowWidth, int windowHeight) {
-        super(currentState, new ImageReader().getBufferedImage("res/bg/bg.png"), windowWidth, windowHeight);
+        super(currentState, new ImageReader().getBufferedImage("res/bg/inventory.png"), windowWidth, windowHeight);
     }
 
     @Override
