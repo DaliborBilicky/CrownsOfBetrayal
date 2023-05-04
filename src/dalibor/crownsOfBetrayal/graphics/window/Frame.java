@@ -1,8 +1,13 @@
 package dalibor.crownsOfBetrayal.graphics.window;
 
+import dalibor.crownsOfBetrayal.graphics.ImageReader;
 import dalibor.crownsOfBetrayal.main.Game;
+import java.awt.Cursor;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class Frame {
@@ -24,6 +29,13 @@ public class Frame {
         frame.pack();
         device.setFullScreenWindow(frame);
         this.panel.requestFocus();
+        // kod z internetu cisto len pre dobry pocit 
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image image = new ImageReader()
+            .getBufferedImage("res/cursor.png");
+        Cursor cursor =
+            toolkit.createCustomCursor(image, new Point(0, 0), "none");
+        frame.setCursor(cursor);
     }
 
     public void repaintPanel() {
