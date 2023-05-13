@@ -3,15 +3,19 @@
   <component name="CheckStyle-IDEA" serialisationVersion="2">
     <checkstyleVersion>10.7.0</checkstyleVersion>
     <scanScope>JavaOnly</scanScope>
+    <suppressErrors>true</suppressErrors>
     <copyLibs>true</copyLibs>
+    <option name="thirdPartyClasspath" />
     <option name="activeLocationIds">
-      <option value="5b732dec-0c27-4cec-982b-9bb0812e8049" />
+      <option value="5a0f817f-ad03-412c-9d09-7170c6543a6d" />
+      <option value="89833a02-2844-4022-9eb2-32300959627e" />
     </option>
     <option name="locations">
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
-        <ConfigurationLocation id="5b732dec-0c27-4cec-982b-9bb0812e8049" type="LOCAL_FILE" scope="All" description="FRI">$USER_HOME$/Documents/Programming/fri_checkstyle.xml</ConfigurationLocation>
+        <ConfigurationLocation id="89833a02-2844-4022-9eb2-32300959627e" type="LOCAL_FILE" scope="All" description="FRI">$PROJECT_DIR$/../../CheckStyle/default_checks.xml</ConfigurationLocation>
+        <ConfigurationLocation id="79ac0be2-bd59-4c70-bc4a-11c39733fda0" type="LOCAL_FILE" scope="All" description="FRIMoodle">$PROJECT_DIR$/../../CheckStyle/fri_checkstyle.xml</ConfigurationLocation>
       </list>
     </option>
   </component>
