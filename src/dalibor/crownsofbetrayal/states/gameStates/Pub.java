@@ -62,8 +62,8 @@ public class Pub extends State {
         for (Button button : this.buttons) {
             button.draw(g2D);
         }
-        for (ItemButton[] buttons : this.itemButtons) {
-            for (ItemButton button : buttons) {
+        for (ItemButton[] buttonsList : this.itemButtons) {
+            for (ItemButton button : buttonsList) {
                 button.draw(g2D);
             }
         }
@@ -104,8 +104,8 @@ public class Pub extends State {
                 button.setMouseIn(true);
             }
         }
-        for (ItemButton[] buttons : this.itemButtons) {
-            for (ItemButton button : buttons) {
+        for (ItemButton[] buttonsList : this.itemButtons) {
+            for (ItemButton button : buttonsList) {
                 button.setMouseIn(false);
                 if (button.getButtonBounds().contains(event.getX(), event.getY())) {
                     button.setMouseIn(true);

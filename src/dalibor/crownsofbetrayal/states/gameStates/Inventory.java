@@ -32,8 +32,8 @@ public class Inventory extends State {
     @Override
     public void draw(Graphics2D g2D) {
         super.draw(g2D);
-        for (Button[] buttons : this.buttons) {
-            for (Button button : buttons) {
+        for (Button[] buttonsList : this.buttons) {
+            for (Button button : buttonsList) {
                 button.draw(g2D);
             }
         }
@@ -63,8 +63,8 @@ public class Inventory extends State {
 
     @Override
     public void mouseMoved(MouseEvent event) {
-        for (Button[] buttons : this.buttons) {
-            for (Button button : buttons) {
+        for (Button[] buttonsList : this.buttons) {
+            for (Button button : buttonsList) {
                 button.setMouseIn(false);
                 if (button.getButtonBounds().contains(event.getX(), event.getY())) {
                     button.setMouseIn(true);
