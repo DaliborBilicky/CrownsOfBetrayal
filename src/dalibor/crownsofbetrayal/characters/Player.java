@@ -1,5 +1,6 @@
-package dalibor.crownsofbetrayal.entities;
+package dalibor.crownsofbetrayal.characters;
 
+import dalibor.crownsofbetrayal.characters.enemies.Enemy;
 import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.items.Item;
 import java.awt.image.BufferedImage;
@@ -14,10 +15,14 @@ public class Player {
     private final ArrayList<Item> inventory;
     private final ArrayList<Item> pubInventory;
     private final ArrayList<Item> craftingInventory;
+    private boolean onMove;
+    private int health;
+    private int damage;
     private int supplies;
 
     public Player() {
         this.supplies = SUPPLIES_CAPACITY;
+        this.onMove = true;
         this.imageRepresentation = new ImageReader()
             .getBufferedImage("res/characters/player.png");
         this.inventory = new ArrayList<>();
@@ -111,5 +116,33 @@ public class Player {
 
     public boolean isCraftingInventoryFull() {
         return this.craftingInventory.size() == CRAFTING_INVENTORY_CAPACITY;
+    }
+
+    public int getHealth() {
+        return this.health;
+    }
+
+    public int getDamage() {
+        return this.damage;
+    }
+
+    public int dealDamage() {
+        return 0;
+    }
+
+    public void takeDamage(int takenDamage) {
+        this.damage -= takenDamage;
+    }
+
+    public void makeSpecialAttack(Enemy enemy) {
+
+    }
+
+    public boolean isOnMove() {
+        return this.onMove;
+    }
+
+    public void setOnMove(boolean onMove) {
+        this.onMove = onMove;
     }
 }

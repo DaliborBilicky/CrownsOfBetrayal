@@ -1,6 +1,6 @@
 package dalibor.crownsofbetrayal.states;
 
-import dalibor.crownsofbetrayal.entities.Player;
+import dalibor.crownsofbetrayal.characters.Player;
 import dalibor.crownsofbetrayal.main.Game;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;

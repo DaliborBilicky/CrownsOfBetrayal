@@ -11,7 +11,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class Frame {
-    private static final String TITLE = "Minecraft 2D";
+    private static final String TITLE = "Crowns Of Betrayal";
     private final Panel panel;
 
     public Frame(Game game) {
@@ -22,6 +22,8 @@ public class Frame {
 
         frame.setTitle(TITLE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(
+            new ImageReader().getBufferedImage("res/cursor.png"));
         frame.setResizable(false);
         frame.setUndecorated(true);
         frame.setVisible(true);

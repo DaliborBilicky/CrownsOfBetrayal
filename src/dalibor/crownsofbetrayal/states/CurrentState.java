@@ -4,7 +4,7 @@ public class CurrentState {
     private States states;
 
     public CurrentState() {
-        this.states = States.MENU;
+        this.states = States.WORLD_MAP;
     }
 
     public States getState() {

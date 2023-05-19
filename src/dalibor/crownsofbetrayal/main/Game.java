@@ -1,6 +1,6 @@
 package dalibor.crownsofbetrayal.main;
 
-import dalibor.crownsofbetrayal.entities.Player;
+import dalibor.crownsofbetrayal.characters.Player;
 import dalibor.crownsofbetrayal.graphics.window.Frame;
 import dalibor.crownsofbetrayal.states.CurrentState;
 import dalibor.crownsofbetrayal.states.gameStates.Crafting;

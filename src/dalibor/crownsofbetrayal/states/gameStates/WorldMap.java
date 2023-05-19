@@ -78,6 +78,7 @@ public class WorldMap extends State {
         for (StateButton button : this.stateButtons) {
             if (button.getButtonBounds().contains(event.getX(), event.getY())) {
                 this.getCurrentState().setState(States.DUNGEON);
+                this.getGame().getDungeon().setDungeon();
             }
         }
     }

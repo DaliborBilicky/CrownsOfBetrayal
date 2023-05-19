@@ -1,4 +1,4 @@
-package dalibor.crownsofbetrayal.entities;
+package dalibor.crownsofbetrayal.characters;
 
 public class CapacityOverflowException extends Exception {
     public CapacityOverflowException() {
