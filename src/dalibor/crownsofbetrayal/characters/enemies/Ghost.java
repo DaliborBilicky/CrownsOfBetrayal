@@ -10,16 +10,6 @@ public class Ghost extends Enemy {
 
 
     @Override
-    public int dealDamage() {
-        return 0;
-    }
-
-    @Override
-    public void takeDamage(int takenDamage) {
-
-    }
-
-    @Override
     public void makeSpecialAttack(Player player) {
 
     }

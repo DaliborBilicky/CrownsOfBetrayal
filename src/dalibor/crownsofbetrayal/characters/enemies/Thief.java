@@ -10,16 +10,6 @@ public class Thief extends Enemy {
             100, 10);
     }
 
-    @Override
-    public int dealDamage() {
-        return 0;
-    }
-
-    @Override
-    public void takeDamage(int takenDamage) {
-
-    }
-
 
     @Override
     public void makeSpecialAttack(Player player) {

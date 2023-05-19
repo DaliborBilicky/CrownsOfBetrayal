@@ -8,18 +8,20 @@ import java.awt.image.BufferedImage;
 
 public abstract class Enemy {
     private final BufferedImage imageRepresentation;
-    private final int health;
     private final int damage;
+    private int health;
     private boolean takingDamage;
     private int x;
     private int y;
     private int size;
+    private boolean dead;
 
-    public Enemy(BufferedImage imageRepresentation, int health, int damage) {
+    public Enemy(BufferedImage imageRepresentation, int maxHealth, int damage) {
         this.imageRepresentation = imageRepresentation;
-        this.health = health;
+        this.health = maxHealth;
         this.damage = damage;
         this.takingDamage = false;
+        this.dead = false;
     }
 
     public void setImageLocation(int x, int y, int size) {
@@ -50,17 +52,31 @@ public abstract class Enemy {
         return this.imageRepresentation;
     }
 
-    public int getHealth() {
-        return this.health;
+
+    public int dealDamage() {
+        return this.getDamage();
     }
 
     public int getDamage() {
         return this.damage;
     }
 
-    public abstract int dealDamage();
+    public void takeDamage(int takenDamage) {
+        if (this.health > 0) {
+            this.health -= takenDamage;
+        } else {
+            this.dead = true;
+        }
 
-    public abstract void takeDamage(int takenDamage);
+    }
+
+    public int getHealth() {
+        return this.health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
     public abstract void makeSpecialAttack(Player player);
 
@@ -70,5 +86,9 @@ public abstract class Enemy {
 
     public void setTakingDamage(boolean takingDamage) {
         this.takingDamage = takingDamage;
+    }
+
+    public boolean isDead() {
+        return this.dead;
     }
 }
