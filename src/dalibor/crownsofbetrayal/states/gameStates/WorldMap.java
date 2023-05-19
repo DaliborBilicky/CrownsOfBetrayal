@@ -2,7 +2,7 @@ package dalibor.crownsofbetrayal.states.gameStates;
 
 import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.StateButton;
-import dalibor.crownsofbetrayal.states.CurrentState;
+import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import java.awt.Graphics2D;
@@ -11,10 +11,9 @@ import java.awt.event.MouseEvent;
 public class WorldMap extends State {
     private final StateButton[] stateButtons;
 
-    public WorldMap(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
-        super(currentState,
-            new ImageReader().getBufferedImage("res/bg/world_map.png"),
-            windowWidth, windowHeight, scale);
+    public WorldMap(Game game) {
+        super(game,
+            new ImageReader().getBufferedImage("res/bg/world_map.png"));
         this.stateButtons = new StateButton[5];
         this.setButtons();
     }
@@ -76,7 +75,11 @@ public class WorldMap extends State {
             event.getY() < 100 / this.getScale()) {
             this.getCurrentState().setState(States.GAME_MENU);
         }
-
+        for (StateButton button : this.stateButtons) {
+            if (button.getButtonBounds().contains(event.getX(), event.getY())) {
+                this.getCurrentState().setState(States.DUNGEON);
+            }
+        }
     }
 
     @Override

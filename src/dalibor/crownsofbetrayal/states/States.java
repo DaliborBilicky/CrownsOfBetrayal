@@ -9,6 +9,7 @@ public enum States {
     QUESTS,
     SHOP,
     CRAFTING,
-    WORLD_MAP;
+    WORLD_MAP,
+    DUNGEON;
 
 }

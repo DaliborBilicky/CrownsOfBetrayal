@@ -1,8 +1,10 @@
 package dalibor.crownsofbetrayal.main;
 
+import dalibor.crownsofbetrayal.entities.Player;
 import dalibor.crownsofbetrayal.graphics.window.Frame;
 import dalibor.crownsofbetrayal.states.CurrentState;
 import dalibor.crownsofbetrayal.states.gameStates.Crafting;
+import dalibor.crownsofbetrayal.states.gameStates.Dungeon;
 import dalibor.crownsofbetrayal.states.gameStates.GameMenu;
 import dalibor.crownsofbetrayal.states.gameStates.Inventory;
 import dalibor.crownsofbetrayal.states.gameStates.Menu;
@@ -34,33 +36,36 @@ public class Game implements Runnable {
     private final Shop shop;
     private final Crafting crafting;
     private final WorldMap worldMap;
+    private final Player player;
+    private final double scale;
+    private final Dungeon dungeon;
 
     public Game() {
-        System.out.println(EXPECTED_WINDOW_WIDTH);
-        System.out.println(WINDOW_WIDTH);
-        System.out.println(EXPECTED_WINDOW_WIDTH / WINDOW_WIDTH);
-        double scale = (double)EXPECTED_WINDOW_WIDTH / WINDOW_WIDTH;
+        this.scale = (double)EXPECTED_WINDOW_WIDTH / WINDOW_WIDTH;
+
+        this.player = new Player();
+
         this.currentState = new CurrentState();
-        this.menu =
-            new Menu(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
-        this.gameMenu =
-            new GameMenu(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
-        this.inventory =
-            new Inventory(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
-        this.pub =
-            new Pub(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
-        this.quests =
-            new Quests(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
-        this.shop =
-            new Shop(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
-        this.crafting =
-            new Crafting(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
-        this.worldMap =
-            new WorldMap(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
+        this.menu = new Menu(this);
+        this.gameMenu = new GameMenu(this);
+        this.inventory = new Inventory(this);
+        this.pub = new Pub(this);
+        this.quests = new Quests(this);
+        this.shop = new Shop(this);
+        this.crafting = new Crafting(this);
+        this.worldMap = new WorldMap(this);
+        this.dungeon = new Dungeon(this);
 
         this.frame = new Frame(this);
     }
 
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public double getScale() {
+        return this.scale;
+    }
 
     public void startGameLoop() {
         Thread gameThread = new Thread(this);
@@ -118,6 +123,7 @@ public class Game implements Runnable {
             case WORLD_MAP -> this.worldMap.update();
             case QUESTS -> this.quests.update();
             case CRAFTING -> this.crafting.update();
+            case DUNGEON -> this.dungeon.update();
         }
     }
 
@@ -131,6 +137,7 @@ public class Game implements Runnable {
             case WORLD_MAP -> this.worldMap.draw(g2D);
             case QUESTS -> this.quests.draw(g2D);
             case CRAFTING -> this.crafting.draw(g2D);
+            case DUNGEON -> this.dungeon.draw(g2D);
         }
     }
 
@@ -168,6 +175,10 @@ public class Game implements Runnable {
 
     public WorldMap getWorldMap() {
         return this.worldMap;
+    }
+
+    public Dungeon getDungeon() {
+        return this.dungeon;
     }
 
     public int getWidth() {

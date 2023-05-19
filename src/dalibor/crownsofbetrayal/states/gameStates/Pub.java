@@ -4,7 +4,7 @@ import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.Button;
 import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
 import dalibor.crownsofbetrayal.graphics.ui.QuestButton;
-import dalibor.crownsofbetrayal.states.CurrentState;
+import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import java.awt.Graphics2D;
@@ -14,10 +14,8 @@ public class Pub extends State {
     private final Button[] buttons;
     private final ItemButton[][] itemButtons;
 
-    public Pub(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
-        super(currentState,
-            new ImageReader().getBufferedImage("res/bg/pub.png"),
-            windowWidth, windowHeight, scale);
+    public Pub(Game game) {
+        super(game, new ImageReader().getBufferedImage("res/bg/pub.png"));
         this.buttons = new Button[4];
         this.itemButtons = new ItemButton[6][7];
         this.setButtons();

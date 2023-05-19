@@ -3,7 +3,7 @@ package dalibor.crownsofbetrayal.states.gameStates;
 import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.Button;
 import dalibor.crownsofbetrayal.graphics.ui.QuestButton;
-import dalibor.crownsofbetrayal.states.CurrentState;
+import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import java.awt.Graphics2D;
@@ -12,10 +12,8 @@ import java.awt.event.MouseEvent;
 public class Quests extends State {
     private final QuestButton[][] questButtons;
 
-    public Quests(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
-        super(currentState,
-            new ImageReader().getBufferedImage("res/bg/quests.png"),
-            windowWidth, windowHeight, scale);
+    public Quests(Game game) {
+        super(game, new ImageReader().getBufferedImage("res/bg/quests.png"));
         this.questButtons = new QuestButton[5][2];
         this.setButtons();
     }

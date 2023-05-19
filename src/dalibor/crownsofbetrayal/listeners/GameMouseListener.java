@@ -26,6 +26,7 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
                 this.panel.getGame().getWorldMap().mouseClicked(e);
             case QUESTS -> this.panel.getGame().getQuests().mouseClicked(e);
             case CRAFTING -> this.panel.getGame().getCrafting().mouseClicked(e);
+            case DUNGEON -> this.panel.getGame().getDungeon().mouseClicked(e);
         }
     }
 
@@ -41,6 +42,7 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case WORLD_MAP -> this.panel.getGame().getWorldMap().mosePressed(e);
             case QUESTS -> this.panel.getGame().getQuests().mosePressed(e);
             case CRAFTING -> this.panel.getGame().getCrafting().mosePressed(e);
+            case DUNGEON -> this.panel.getGame().getDungeon().mosePressed(e);
         }
     }
 
@@ -58,6 +60,7 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
                 this.panel.getGame().getWorldMap().moseReleased(e);
             case QUESTS -> this.panel.getGame().getQuests().moseReleased(e);
             case CRAFTING -> this.panel.getGame().getCrafting().moseReleased(e);
+            case DUNGEON -> this.panel.getGame().getDungeon().moseReleased(e);
         }
     }
 
@@ -87,6 +90,7 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case WORLD_MAP -> this.panel.getGame().getWorldMap().mouseMoved(e);
             case QUESTS -> this.panel.getGame().getQuests().mouseMoved(e);
             case CRAFTING -> this.panel.getGame().getCrafting().mouseMoved(e);
+            case DUNGEON -> this.panel.getGame().getDungeon().mouseMoved(e);
         }
     }
 }

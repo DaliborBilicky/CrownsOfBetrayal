@@ -3,29 +3,27 @@ package dalibor.crownsofbetrayal.states.gameStates;
 import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.Button;
 import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
-import dalibor.crownsofbetrayal.states.CurrentState;
+import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 public class Inventory extends State {
-    private final Button[][] buttons;
+    private final Button[][] inventoryButtons;
     private final Button[] gearButtons;
 
-    public Inventory(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
-        super(currentState,
-            new ImageReader().getBufferedImage("res/bg/inventory.png"),
-            windowWidth, windowHeight, scale);
-        this.buttons = new Button[4][6];
+    public Inventory(Game game) {
+        super(game, new ImageReader().getBufferedImage("res/bg/inventory.png"));
+        this.inventoryButtons = new Button[4][6];
         this.gearButtons = new Button[2];
         this.setButtons();
     }
 
     private void setButtons() {
-        for (int i = 0; i < this.buttons.length; i++) {
-            for (int j = 0; j < this.buttons[i].length; j++) {
-                this.buttons[i][j] = new ItemButton(
+        for (int i = 0; i < this.inventoryButtons.length; i++) {
+            for (int j = 0; j < this.inventoryButtons[i].length; j++) {
+                this.inventoryButtons[i][j] = new ItemButton(
                     (int)(this.getWindowWidth() * 0.44 +
                         (175 / this.getScale() * j)),
                     (int)(this.getWindowHeight() * 0.28 +
@@ -48,7 +46,7 @@ public class Inventory extends State {
     @Override
     public void draw(Graphics2D g2D) {
         super.draw(g2D);
-        for (Button[] buttonsList : this.buttons) {
+        for (Button[] buttonsList : this.inventoryButtons) {
             for (Button button : buttonsList) {
                 button.draw(g2D);
             }
@@ -83,7 +81,7 @@ public class Inventory extends State {
 
     @Override
     public void mouseMoved(MouseEvent event) {
-        for (Button[] buttonsList : this.buttons) {
+        for (Button[] buttonsList : this.inventoryButtons) {
             for (Button button : buttonsList) {
                 button.setMouseIn(false);
                 if (button.getButtonBounds().contains(event.getX(), event.getY())) {

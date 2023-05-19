@@ -3,7 +3,7 @@ package dalibor.crownsofbetrayal.states.gameStates;
 import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.Button;
 import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
-import dalibor.crownsofbetrayal.states.CurrentState;
+import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import java.awt.Graphics2D;
@@ -13,10 +13,8 @@ public class Crafting extends State {
     private final Button[][] buttons;
     private final Button[] craftingButtons;
 
-    public Crafting(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
-        super(currentState,
-            new ImageReader().getBufferedImage("res/bg/crafting.png"),
-            windowWidth, windowHeight, scale);
+    public Crafting(Game game) {
+        super(game, new ImageReader().getBufferedImage("res/bg/crafting.png"));
         this.buttons = new Button[2][6];
         this.craftingButtons = new Button[3];
         this.setButtons();

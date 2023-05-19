@@ -1,5 +1,7 @@
 package dalibor.crownsofbetrayal.states;
 
+import dalibor.crownsofbetrayal.entities.Player;
+import dalibor.crownsofbetrayal.main.Game;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -10,13 +12,21 @@ public abstract class State {
     private final int windowWidth;
     private final int windowHeight;
     private final double scale;
+    private final Game game;
+    private final Player player;
 
-    public State(CurrentState currentState, BufferedImage bgImage, int windowWidth, int windowHeight, double scale) {
-        this.currentState = currentState;
+    public State(Game game, BufferedImage bgImage) {
+        this.game = game;
+        this.currentState = this.game.getCurrentState();
         this.bgImage = bgImage;
-        this.windowWidth = windowWidth;
-        this.windowHeight = windowHeight;
-        this.scale = scale;
+        this.windowWidth = this.game.getWidth();
+        this.windowHeight = this.game.getHeight();
+        this.scale = this.game.getScale();
+        this.player = this.game.getPlayer();
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 
     public void draw(Graphics2D g2D) {
@@ -47,5 +57,9 @@ public abstract class State {
 
     public double getScale() {
         return this.scale;
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 }
