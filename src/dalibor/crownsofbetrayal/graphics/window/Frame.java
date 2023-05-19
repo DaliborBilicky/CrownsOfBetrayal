@@ -25,9 +25,9 @@ public class Frame {
         frame.setResizable(false);
         frame.setUndecorated(true);
         frame.setVisible(true);
+        device.setFullScreenWindow(frame);
         frame.add(this.panel);
         frame.pack();
-        device.setFullScreenWindow(frame);
         this.panel.requestFocus();
         // kod z internetu cisto len pre dobry pocit 
         Toolkit toolkit = Toolkit.getDefaultToolkit();

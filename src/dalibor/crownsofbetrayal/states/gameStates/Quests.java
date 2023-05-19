@@ -12,8 +12,10 @@ import java.awt.event.MouseEvent;
 public class Quests extends State {
     private final QuestButton[][] questButtons;
 
-    public Quests(CurrentState currentState, int windowWidth, int windowHeight) {
-        super(currentState, new ImageReader().getBufferedImage("res/bg/quests.png"), windowWidth, windowHeight);
+    public Quests(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
+        super(currentState,
+            new ImageReader().getBufferedImage("res/bg/quests.png"),
+            windowWidth, windowHeight, scale);
         this.questButtons = new QuestButton[5][2];
         this.setButtons();
     }
@@ -22,10 +24,12 @@ public class Quests extends State {
         for (int i = 0; i < this.questButtons.length; i++) {
             for (int j = 0; j < this.questButtons[i].length; j++) {
                 this.questButtons[i][j] = new QuestButton(
-                    (int)(this.getWindowWidth() * 0.077 + (890 * j)),
-                    (int)(this.getWindowHeight() * 0.205 + ((150 + (i * 1.1)) * i)),
-                    60,
-                    60
+                    (int)(this.getWindowWidth() * 0.077 +
+                        (890 / this.getScale() * j)),
+                    (int)(this.getWindowHeight() * 0.205 +
+                        ((150 / this.getScale() + (i * 1.1)) * i)),
+                    (int)(60 / this.getScale()),
+                    (int)(60 / this.getScale())
                 );
             }
         }
@@ -59,7 +63,8 @@ public class Quests extends State {
 
     @Override
     public void mouseClicked(MouseEvent event) {
-        if (event.getX() < 100 && event.getY() < 100) {
+        if (event.getX() < 100 / this.getScale() &&
+            event.getY() < 100 / this.getScale()) {
             this.getCurrentState().setState(States.GAME_MENU);
         }
     }

@@ -12,19 +12,22 @@ import java.awt.event.MouseEvent;
 public class Menu extends State {
     private final Button[] buttons;
 
-    public Menu(CurrentState currentState, int windowWidth, int windowHeight) {
-        super(currentState, new ImageReader().getBufferedImage("res/bg/menu.png"), windowWidth, windowHeight);
+    public Menu(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
+        super(currentState,
+            new ImageReader().getBufferedImage("res/bg/menu.png"),
+            windowWidth, windowHeight, scale);
         this.buttons = new Button[3];
         this.setButtons();
     }
 
     private void setButtons() {
+        System.out.println(this.getScale());
         for (int i = 0; i < this.buttons.length; i++) {
             this.buttons[i] = new StateButton(
                 this.getWindowWidth() / 2,
                 (int)(this.getWindowHeight() * (0.47 + (0.175 * i))),
-                520,
-                100);
+                (int)(520 / this.getScale()),
+                (int)(100 / this.getScale()));
             if (this.buttons[i] instanceof StateButton) {
                 ((StateButton)this.buttons[i]).setCurrentState(this.getCurrentState());
             }

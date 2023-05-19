@@ -14,10 +14,10 @@ public class Pub extends State {
     private final Button[] buttons;
     private final ItemButton[][] itemButtons;
 
-    public Pub(CurrentState currentState, int windowWidth, int windowHeight) {
+    public Pub(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
         super(currentState,
             new ImageReader().getBufferedImage("res/bg/pub.png"),
-            windowWidth, windowHeight);
+            windowWidth, windowHeight, scale);
         this.buttons = new Button[4];
         this.itemButtons = new ItemButton[6][7];
         this.setButtons();
@@ -28,16 +28,21 @@ public class Pub extends State {
             for (int j = 0; j < this.itemButtons[i].length; j++) {
                 if (j < this.itemButtons[i].length * 0.6) {
                     this.itemButtons[i][j] = new ItemButton(
-                        (int)(this.getWindowWidth() * 0.48 + (120 * j)),
-                        (int)(this.getWindowHeight() * 0.25 + (120 * i)),
-                        120,
-                        120);
+                        (int)(this.getWindowWidth() * 0.48 +
+                            (120 / this.getScale() * j)),
+                        (int)(this.getWindowHeight() * 0.25 +
+                            (120 / this.getScale() * i)),
+                        (int)(120 / this.getScale()),
+                        (int)(120 / this.getScale()));
                 } else {
                     this.itemButtons[i][j] = new ItemButton(
-                        (int)(this.getWindowWidth() * 0.47 + (120 * j) + 100),
-                        (int)(this.getWindowHeight() * 0.25 + (120 * i)),
-                        120,
-                        120);
+                        (int)(this.getWindowWidth() * 0.47 +
+                            (120 / this.getScale() * j) +
+                            100 / this.getScale()),
+                        (int)(this.getWindowHeight() * 0.25 +
+                            (120 / this.getScale() * i)),
+                        (int)(120 / this.getScale()),
+                        (int)(120 / this.getScale()));
                 }
             }
         }
@@ -45,14 +50,14 @@ public class Pub extends State {
             this.buttons[i] = new QuestButton(
                 (int)(this.getWindowWidth() * 0.228),
                 (int)(this.getWindowHeight() * (0.27 + (0.15 * i))),
-                610,
-                150);
+                (int)(610 / this.getScale()),
+                (int)(150 / this.getScale()));
         }
         this.buttons[3] = new ItemButton(
             (int)(this.getWindowWidth() * 0.228),
             (int)(this.getWindowHeight() * 0.80),
-            610,
-            150);
+            (int)(610 / this.getScale()),
+            (int)(150 / this.getScale()));
     }
 
     @Override
@@ -85,7 +90,8 @@ public class Pub extends State {
 
     @Override
     public void mouseClicked(MouseEvent event) {
-        if (event.getX() < 100 && event.getY() < 100) {
+        if (event.getX() < 100 / this.getScale() &&
+            event.getY() < 100 / this.getScale()) {
             this.getCurrentState().setState(States.GAME_MENU);
         }
     }

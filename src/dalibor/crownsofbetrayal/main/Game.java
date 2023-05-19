@@ -14,6 +14,8 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 public class Game implements Runnable {
+    private static final int EXPECTED_WINDOW_WIDTH = 1920;
+    private static final int EXPECTED_WINDOW_HEIGHT = 1080;
     private static final int WINDOW_WIDTH =
         (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private static final int WINDOW_HEIGHT =
@@ -34,23 +36,31 @@ public class Game implements Runnable {
     private final WorldMap worldMap;
 
     public Game() {
+        System.out.println(EXPECTED_WINDOW_WIDTH);
+        System.out.println(WINDOW_WIDTH);
+        System.out.println(EXPECTED_WINDOW_WIDTH / WINDOW_WIDTH);
+        double scale = (double)EXPECTED_WINDOW_WIDTH / WINDOW_WIDTH;
         this.currentState = new CurrentState();
-        this.menu = new Menu(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
+        this.menu =
+            new Menu(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
         this.gameMenu =
-            new GameMenu(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
+            new GameMenu(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
         this.inventory =
-            new Inventory(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
-        this.pub = new Pub(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
+            new Inventory(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
+        this.pub =
+            new Pub(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
         this.quests =
-            new Quests(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
-        this.shop = new Shop(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
+            new Quests(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
+        this.shop =
+            new Shop(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
         this.crafting =
-            new Crafting(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
+            new Crafting(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
         this.worldMap =
-            new WorldMap(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT);
+            new WorldMap(this.currentState, WINDOW_WIDTH, WINDOW_HEIGHT, scale);
 
         this.frame = new Frame(this);
     }
+
 
     public void startGameLoop() {
         Thread gameThread = new Thread(this);

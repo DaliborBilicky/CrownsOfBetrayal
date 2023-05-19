@@ -13,9 +13,11 @@ public class Inventory extends State {
     private final Button[][] buttons;
     private final Button[] gearButtons;
 
-    public Inventory(CurrentState currentState, int windowWidth, int windowHeight) {
-        super(currentState, new ImageReader().getBufferedImage("res/bg/inventory.png"), windowWidth, windowHeight);
-        this.buttons = new Button[6][8];
+    public Inventory(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
+        super(currentState,
+            new ImageReader().getBufferedImage("res/bg/inventory.png"),
+            windowWidth, windowHeight, scale);
+        this.buttons = new Button[4][6];
         this.gearButtons = new Button[2];
         this.setButtons();
     }
@@ -24,18 +26,21 @@ public class Inventory extends State {
         for (int i = 0; i < this.buttons.length; i++) {
             for (int j = 0; j < this.buttons[i].length; j++) {
                 this.buttons[i][j] = new ItemButton(
-                    (int)(this.getWindowWidth() * 0.45 + (120 * j)),
-                    (int)(this.getWindowHeight() * 0.25 + (120 * i)),
-                    120,
-                    120);
+                    (int)(this.getWindowWidth() * 0.44 +
+                        (175 / this.getScale() * j)),
+                    (int)(this.getWindowHeight() * 0.28 +
+                        (175 / this.getScale() * i)),
+                    (int)(175 / this.getScale()),
+                    (int)(175 / this.getScale()));
             }
         }
         for (int i = 0; i < this.gearButtons.length; i++) {
             this.gearButtons[i] = new ItemButton(
-                (int)(this.getWindowWidth() * 0.14 + (320 * i)),
+                (int)(this.getWindowWidth() * 0.14 +
+                    (320 / this.getScale() * i)),
                 (int)(this.getWindowHeight() * 0.404),
-                165,
-                165
+                (int)(165 / this.getScale()),
+                (int)(165 / this.getScale())
             );
         }
     }
@@ -70,7 +75,8 @@ public class Inventory extends State {
 
     @Override
     public void mouseClicked(MouseEvent event) {
-        if (event.getX() < 100 && event.getY() < 100) {
+        if (event.getX() < 100 / this.getScale() &&
+            event.getY() < 100 / this.getScale()) {
             this.getCurrentState().setState(States.GAME_MENU);
         }
     }

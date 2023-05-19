@@ -11,8 +11,10 @@ import java.awt.event.MouseEvent;
 public class Shop extends State {
     private final Button[][] buttons;
 
-    public Shop(CurrentState currentState, int windowWidth, int windowHeight) {
-        super(currentState, new ImageReader().getBufferedImage("res/bg/shop.png"), windowWidth, windowHeight);
+    public Shop(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
+        super(currentState,
+            new ImageReader().getBufferedImage("res/bg/shop.png"),
+            windowWidth, windowHeight, scale);
         this.buttons = new Button[5][10];
         this.setButtons();
     }
@@ -22,16 +24,21 @@ public class Shop extends State {
             for (int j = 0; j < this.buttons[i].length; j++) {
                 if (j < this.buttons[i].length / 2) {
                     this.buttons[i][j] = new Button(
-                        (int)(this.getWindowWidth() * 0.10 + (150 * j)),
-                        (int)(this.getWindowHeight() * 0.25 + (150 * i)),
-                        150,
-                        150);
+                        (int)(this.getWindowWidth() * 0.10 +
+                            (150 / this.getScale() * j)),
+                        (int)(this.getWindowHeight() * 0.25 +
+                            (150 / this.getScale() * i)),
+                        (int)(150 / this.getScale()),
+                        (int)(150 / this.getScale()));
                 } else {
                     this.buttons[i][j] = new Button(
-                        (int)(this.getWindowWidth() * 0.10 + (150 * j) + 175),
-                        (int)(this.getWindowHeight() * 0.25 + (150 * i)),
-                        150,
-                        150);
+                        (int)(this.getWindowWidth() * 0.10 +
+                            (150 / this.getScale() * j) +
+                            175 / this.getScale()),
+                        (int)(this.getWindowHeight() * 0.25 +
+                            (150 / this.getScale() * i)),
+                        (int)(150 / this.getScale()),
+                        (int)(150 / this.getScale()));
                 }
             }
         }
@@ -61,11 +68,12 @@ public class Shop extends State {
     public void moseReleased(MouseEvent event) {
 
     }
-    
+
 
     @Override
     public void mouseClicked(MouseEvent event) {
-        if (event.getX() < 100 && event.getY() < 100) {
+        if (event.getX() < 100 / this.getScale() &&
+            event.getY() < 100 / this.getScale()) {
             this.getCurrentState().setState(States.GAME_MENU);
         }
     }

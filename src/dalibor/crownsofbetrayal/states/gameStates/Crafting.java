@@ -13,8 +13,10 @@ public class Crafting extends State {
     private final Button[][] buttons;
     private final Button[] craftingButtons;
 
-    public Crafting(CurrentState currentState, int windowWidth, int windowHeight) {
-        super(currentState, new ImageReader().getBufferedImage("res/bg/crafting.png"), windowWidth, windowHeight);
+    public Crafting(CurrentState currentState, int windowWidth, int windowHeight, double scale) {
+        super(currentState,
+            new ImageReader().getBufferedImage("res/bg/crafting.png"),
+            windowWidth, windowHeight, scale);
         this.buttons = new Button[2][6];
         this.craftingButtons = new Button[3];
         this.setButtons();
@@ -24,25 +26,28 @@ public class Crafting extends State {
         for (int i = 0; i < this.buttons.length; i++) {
             for (int j = 0; j < this.buttons[i].length; j++) {
                 this.buttons[i][j] = new ItemButton(
-                    (int)(this.getWindowWidth() * 0.19 + (240 * j)),
-                    (int)(this.getWindowHeight() * 0.50 + (240 * i)),
-                    240,
-                    240);
+                    (int)(this.getWindowWidth() * 0.19 +
+                        (240 / this.getScale() * j)),
+                    (int)(this.getWindowHeight() * 0.50 +
+                        (240 / this.getScale() * i)),
+                    (int)(240 / this.getScale()),
+                    (int)(240 / this.getScale()));
             }
         }
         for (int i = 0; i < this.craftingButtons.length - 1; i++) {
             this.craftingButtons[i] = new ItemButton(
-                (int)(this.getWindowWidth() * 0.237 + (460 * i)),
+                (int)(this.getWindowWidth() * 0.237 +
+                    (460 / this.getScale() * i)),
                 (int)(this.getWindowHeight() * 0.22),
-                340,
-                180
+                (int)(340 / this.getScale()),
+                (int)(180 / this.getScale())
             );
         }
         this.craftingButtons[2] = new ItemButton(
             (int)(this.getWindowWidth() * 0.763),
             (int)(this.getWindowHeight() * 0.22),
-            340,
-            180
+            (int)(340 / this.getScale()),
+            (int)(180 / this.getScale())
         );
     }
 
@@ -76,7 +81,8 @@ public class Crafting extends State {
 
     @Override
     public void mouseClicked(MouseEvent event) {
-        if (event.getX() < 100 && event.getY() < 100) {
+        if (event.getX() < 100 / this.getScale() &&
+            event.getY() < 100 / this.getScale()) {
             this.getCurrentState().setState(States.GAME_MENU);
         }
     }
