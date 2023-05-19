@@ -4,7 +4,6 @@ import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.Button;
 import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
 import dalibor.crownsofbetrayal.graphics.ui.QuestButton;
-import dalibor.crownsofbetrayal.graphics.ui.StateButton;
 import dalibor.crownsofbetrayal.states.CurrentState;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
@@ -88,11 +87,6 @@ public class Pub extends State {
     public void mouseClicked(MouseEvent event) {
         if (event.getX() < 100 && event.getY() < 100) {
             this.getCurrentState().setState(States.GAME_MENU);
-        }
-        for (Button button : this.buttons) {
-            if (button instanceof StateButton) {
-                ((StateButton)button).applyState();
-            }
         }
     }
 
