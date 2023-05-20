@@ -10,7 +10,7 @@ public class Apple extends Item implements Usable, Sellable {
     private int price;
 
     public Apple() {
-        super(new ImageReader().getBufferedImage("res/items/heal.png"));
+        super(new ImageReader().getBufferedImage("res/items/apple.png"));
         this.setPrice();
     }
 

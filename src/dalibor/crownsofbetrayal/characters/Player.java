@@ -3,6 +3,10 @@ package dalibor.crownsofbetrayal.characters;
 import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.NoItem;
 import dalibor.crownsofbetrayal.items.shields.StrongShield;
+import dalibor.crownsofbetrayal.items.usableItems.Adrenaline;
+import dalibor.crownsofbetrayal.items.usableItems.Apple;
+import dalibor.crownsofbetrayal.items.usableItems.Beer;
+import dalibor.crownsofbetrayal.items.usableItems.Heal;
 import dalibor.crownsofbetrayal.items.weapons.Saw;
 import dalibor.crownsofbetrayal.items.weapons.Sword;
 import dalibor.crownsofbetrayal.items.weapons.Weapon;
@@ -37,6 +41,18 @@ public class Player {
         this.game = game;
         this.damage = DAMAGE;
         this.inventory = new ArrayList<>();
+        this.inventory.add(new Apple());
+        this.inventory.add(new Beer());
+        this.inventory.add(new Heal());
+        this.inventory.add(new Adrenaline());
+        this.inventory.add(new Apple());
+        this.inventory.add(new Beer());
+        this.inventory.add(new Heal());
+        this.inventory.add(new Adrenaline());
+        this.inventory.add(new Apple());
+        this.inventory.add(new Beer());
+        this.inventory.add(new Heal());
+        this.inventory.add(new Adrenaline());
     }
 
     public void draw(Graphics2D g2D) {
@@ -68,7 +84,6 @@ public class Player {
         } else {
             this.supplies = SUPPLIES_CAPACITY;
         }
-        System.out.println(this.supplies);
     }
 
     public boolean isSuppliesFull() {
@@ -95,7 +110,6 @@ public class Player {
         }
     }
 
-
     public int getInventoryCapacity() {
         return INVENTORY_CAPACITY;
     }
@@ -108,7 +122,6 @@ public class Player {
     public boolean isInventoryFull() {
         return this.inventory.size() == INVENTORY_CAPACITY;
     }
-
 
     public int getHealth() {
         return this.health;
@@ -196,5 +209,13 @@ public class Player {
 
     public int getGoldCoins() {
         return this.goldCoins;
+    }
+
+    public boolean isInventoryEmpty() {
+        return this.inventory.isEmpty();
+    }
+
+    public void removeItemFromInventory(int index) {
+        this.inventory.remove(index);
     }
 }
