@@ -35,10 +35,6 @@ public abstract class State {
 
     public abstract void update();
 
-    public abstract void mosePressed(MouseEvent event);
-
-    public abstract void moseReleased(MouseEvent event);
-
     public abstract void mouseClicked(MouseEvent event);
 
     public abstract void mouseMoved(MouseEvent event);

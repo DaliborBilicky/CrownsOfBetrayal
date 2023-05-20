@@ -55,15 +55,6 @@ public class GameMenu extends State {
 
     }
 
-    @Override
-    public void mosePressed(MouseEvent event) {
-
-    }
-
-    @Override
-    public void moseReleased(MouseEvent event) {
-
-    }
 
     @Override
     public void mouseClicked(MouseEvent event) {

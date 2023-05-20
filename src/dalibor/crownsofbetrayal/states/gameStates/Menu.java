@@ -46,15 +46,6 @@ public class Menu extends State {
     public void update() {
     }
 
-    @Override
-    public void mosePressed(MouseEvent event) {
-
-    }
-
-    @Override
-    public void moseReleased(MouseEvent event) {
-
-    }
 
     @Override
     public void mouseClicked(MouseEvent event) {

@@ -4,7 +4,7 @@ import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.Wearable;
 import java.awt.image.BufferedImage;
 
-public class Weapon extends Item implements Wearable {
+public abstract class Weapon extends Item implements Wearable {
     private final int damageMultiplication;
 
     public Weapon(BufferedImage image, int damageMultiplication) {

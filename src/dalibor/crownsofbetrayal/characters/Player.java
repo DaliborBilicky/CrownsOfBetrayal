@@ -3,6 +3,7 @@ package dalibor.crownsofbetrayal.characters;
 import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.NoItem;
 import dalibor.crownsofbetrayal.items.shields.StrongShield;
+import dalibor.crownsofbetrayal.items.shields.WeakShield;
 import dalibor.crownsofbetrayal.items.usableItems.Adrenaline;
 import dalibor.crownsofbetrayal.items.usableItems.Apple;
 import dalibor.crownsofbetrayal.items.usableItems.Beer;
@@ -53,6 +54,7 @@ public class Player {
         this.inventory.add(new Beer());
         this.inventory.add(new Heal());
         this.inventory.add(new Adrenaline());
+        this.inventory.add(new WeakShield());
     }
 
     public void draw(Graphics2D g2D) {
@@ -79,11 +81,7 @@ public class Player {
     }
 
     public void setSupplies(int supplies) {
-        if (this.supplies + supplies < SUPPLIES_CAPACITY) {
-            this.supplies = supplies;
-        } else {
-            this.supplies = SUPPLIES_CAPACITY;
-        }
+        this.supplies = Math.min(supplies, SUPPLIES_CAPACITY);
     }
 
     public boolean isSuppliesFull() {

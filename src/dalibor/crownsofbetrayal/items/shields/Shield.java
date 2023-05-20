@@ -4,7 +4,7 @@ import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.Wearable;
 import java.awt.image.BufferedImage;
 
-public class Shield extends Item implements Wearable {
+public abstract class Shield extends Item implements Wearable {
     private final int protection;
 
     public Shield(BufferedImage image, int protection) {

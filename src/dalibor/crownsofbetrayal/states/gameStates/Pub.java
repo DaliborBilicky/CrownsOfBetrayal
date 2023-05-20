@@ -167,16 +167,6 @@ public class Pub extends State {
     }
 
     @Override
-    public void mosePressed(MouseEvent event) {
-
-    }
-
-    @Override
-    public void moseReleased(MouseEvent event) {
-
-    }
-
-    @Override
     public void mouseClicked(MouseEvent event) {
         if (event.getX() < 100 / this.getScale() &&
             event.getY() < 100 / this.getScale()) {
@@ -206,7 +196,7 @@ public class Pub extends State {
                     Item selectedItem = this.shopInventory[i][j];
                     if (selectedItem instanceof Sellable) {
                         if (this.getPlayer().getGoldCoins() -
-                            ((Sellable)selectedItem).getPrice() * 2 > 0) {
+                            ((Sellable)selectedItem).getPrice() * 2 >= 0) {
                             this.getPlayer().putItemToInventory(selectedItem);
                             this.getPlayer().looseGold(
                                 ((Sellable)selectedItem).getPrice() * 2);
@@ -222,7 +212,7 @@ public class Pub extends State {
             if (this.buttons[i].getButtonBounds()
                 .contains(event.getX(), event.getY())) {
                 if (i == this.buttons.length - 1) {
-                    if (this.getPlayer().getGoldCoins() - 15 > 0 &&
+                    if (this.getPlayer().getGoldCoins() - 15 >= 0 &&
                         !this.getPlayer().isSuppliesFull()) {
                         int tempSupplies = this.getPlayer().getSupplies();
                         this.getPlayer().setSupplies(tempSupplies + 25);

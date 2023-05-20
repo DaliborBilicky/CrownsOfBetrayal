@@ -11,6 +11,8 @@ import dalibor.crownsofbetrayal.items.weapons.Weapon;
 import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
@@ -93,6 +95,31 @@ public class Inventory extends State {
                     (int)(175 / this.getScale()));
             }
         }
+        g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 45));
+        g2D.setColor(Color.WHITE);
+        g2D.drawString(
+            String.valueOf(this.getPlayer().getHealth()),
+            (int)(this.getGame().getWidth() * 0.25),
+            (int)(this.getGame().getHeight() * 0.56));
+        g2D.drawString(
+            String.valueOf(this.getPlayer().getDamage()),
+            (int)(this.getGame().getWidth() * 0.25),
+            (int)(this.getGame().getHeight() * 0.63));
+        Item item = this.getPlayer().getShield();
+        if (item instanceof Shield) {
+            g2D.drawString(
+                String.valueOf(((Shield)item).getProtection()),
+                (int)(this.getGame().getWidth() * 0.25),
+                (int)(this.getGame().getHeight() * 0.69));
+        }
+        g2D.drawString(
+            String.valueOf(this.getPlayer().getGoldCoins()),
+            (int)(this.getGame().getWidth() * 0.25),
+            (int)(this.getGame().getHeight() * 0.75));
+        g2D.drawString(
+            String.valueOf(this.getPlayer().getSupplies()),
+            (int)(this.getGame().getWidth() * 0.25),
+            (int)(this.getGame().getHeight() * 0.82));
     }
 
     @Override
@@ -100,15 +127,6 @@ public class Inventory extends State {
 
     }
 
-    @Override
-    public void mosePressed(MouseEvent event) {
-
-    }
-
-    @Override
-    public void moseReleased(MouseEvent event) {
-
-    }
 
     @Override
     public void mouseClicked(MouseEvent event) {
