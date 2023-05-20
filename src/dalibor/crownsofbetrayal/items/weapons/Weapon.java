@@ -1,15 +1,14 @@
 package dalibor.crownsofbetrayal.items.weapons;
 
 import dalibor.crownsofbetrayal.items.Item;
-import dalibor.crownsofbetrayal.items.Sellable;
 import dalibor.crownsofbetrayal.items.Wearable;
 import java.awt.image.BufferedImage;
 
-public class Weapon extends Item implements Wearable, Sellable {
+public class Weapon extends Item implements Wearable {
     private final int damageMultiplication;
 
-    public Weapon(BufferedImage image, int goldValue, int damageMultiplication) {
-        super(image, goldValue);
+    public Weapon(BufferedImage image, int damageMultiplication) {
+        super(image);
         this.damageMultiplication = damageMultiplication;
     }
 

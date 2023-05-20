@@ -1,5 +1,7 @@
 package dalibor.crownsofbetrayal.items;
 
-public interface Usable {
+import dalibor.crownsofbetrayal.characters.Player;
 
+public interface Usable {
+    void use(Player player);
 }

@@ -15,10 +15,11 @@ import java.util.ArrayList;
 public class Player {
     private static final int INVENTORY_CAPACITY = 24;
     private static final int SUPPLIES_CAPACITY = 50;
+    private static final int DAMAGE = 10;
+    private static final int MAX_HEALTH = 100;
     private final Game game;
     private final ArrayList<Item> inventory;
-    private final int damage;
-    private final int maxHealth;
+    private int damage;
     private Item shield;
     private Item weapon;
     private boolean onMove;
@@ -27,18 +28,15 @@ public class Player {
     private int goldCoins;
 
     public Player(Game game) {
-        this.supplies = SUPPLIES_CAPACITY - 25;
+        this.supplies = SUPPLIES_CAPACITY;
         this.goldCoins = 10;
-        this.maxHealth = 100;
         this.onMove = true;
-        this.health = this.maxHealth;
+        this.health = MAX_HEALTH;
         this.shield = new NoItem();
         this.weapon = new NoItem();
         this.game = game;
-        this.damage = 10;
+        this.damage = DAMAGE;
         this.inventory = new ArrayList<>();
-        this.inventory.add(new StrongShield());
-        this.inventory.add(new Sword());
     }
 
     public void draw(Graphics2D g2D) {
@@ -116,8 +114,16 @@ public class Player {
         return this.health;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public int getDamage() {
         return this.damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public int dealDamage() {
@@ -129,7 +135,11 @@ public class Player {
             return this.damage *
                 ((Weapon)this.weapon).getDamageMultiplication() * 2;
         }
-        return this.damage * ((Weapon)this.weapon).getDamageMultiplication();
+        if (this.weapon instanceof Weapon) {
+            return this.damage *
+                ((Weapon)this.weapon).getDamageMultiplication();
+        }
+        return this.damage;
     }
 
     public void takeDamage(int takenDamage) {
@@ -153,7 +163,11 @@ public class Player {
     }
 
     public void resetHealth() {
-        this.health = this.maxHealth;
+        this.health = MAX_HEALTH;
+    }
+
+    public void resetDamage() {
+        this.damage = DAMAGE;
     }
 
     public Item getShield() {
@@ -174,10 +188,6 @@ public class Player {
 
     public void gainGold(int numOfCoins) {
         this.goldCoins += numOfCoins;
-    }
-
-    public boolean isInventoryNotEmpty() {
-        return !this.inventory.isEmpty();
     }
 
     public void looseGold(int numOfCoins) {

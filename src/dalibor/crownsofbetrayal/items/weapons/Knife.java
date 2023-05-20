@@ -1,10 +1,23 @@
 package dalibor.crownsofbetrayal.items.weapons;
 
 import dalibor.crownsofbetrayal.graphics.ImageReader;
-import java.awt.image.BufferedImage;
+import dalibor.crownsofbetrayal.items.Sellable;
 
-public class Knife extends Weapon {
-    public Knife(BufferedImage image, int goldValue, int damageMultiplication) {
-        super(new ImageReader().getBufferedImage("res/item/weapons/knife.png"), 5, 1);
+public class Knife extends Weapon implements Sellable {
+    private int price;
+
+    public Knife() {
+        super(new ImageReader().getBufferedImage("res/items/weapons/knife.png"), 1);
+        this.setPrice();
+    }
+
+    @Override
+    public void setPrice() {
+        this.price = 5;
+    }
+
+    @Override
+    public int getPrice() {
+        return this.price;
     }
 }

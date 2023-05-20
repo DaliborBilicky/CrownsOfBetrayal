@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Saw extends Weapon {
     public Saw() {
-        super(new ImageReader().getBufferedImage("res/item/weapons/saw.png"), 15, 2);
+        super(new ImageReader().getBufferedImage("res/items/weapons/saw.png"), 2);
     }
 
     public boolean isDoubleTheDamage() {

@@ -188,10 +188,13 @@ public class Pub extends State {
                 if (this.inventoryButtons[i][j].getButtonBounds()
                     .contains(event.getX(), event.getY())) {
                     Item selectedItem = this.pubInventory[i][j];
-                    this.getPlayer().removeItemFromInventory(i, j);
-                    this.getPlayer().gainGold(selectedItem.getGoldValue());
-                    this.shop.add(selectedItem);
-                    this.fillPubInventory();
+                    if (selectedItem instanceof Sellable) {
+                        this.getPlayer().removeItemFromInventory(i, j);
+                        this.getPlayer().gainGold(
+                            ((Sellable)selectedItem).getPrice());
+                        this.shop.add(selectedItem);
+                        this.fillPubInventory();
+                    }
                 }
             }
         }
@@ -201,13 +204,15 @@ public class Pub extends State {
                 if (this.shopButtons[i][j].getButtonBounds()
                     .contains(event.getX(), event.getY())) {
                     Item selectedItem = this.shopInventory[i][j];
-                    if (this.getPlayer().getGoldCoins() -
-                        selectedItem.getGoldValue() * 2 > 0) {
-                        this.getPlayer().putItemToInventory(selectedItem);
-                        this.getPlayer().looseGold(
-                            selectedItem.getGoldValue() * 2);
-                        this.shop.remove(selectedItem);
-                        this.fillPubInventory();
+                    if (selectedItem instanceof Sellable) {
+                        if (this.getPlayer().getGoldCoins() -
+                            ((Sellable)selectedItem).getPrice() * 2 > 0) {
+                            this.getPlayer().putItemToInventory(selectedItem);
+                            this.getPlayer().looseGold(
+                                ((Sellable)selectedItem).getPrice() * 2);
+                            this.shop.remove(selectedItem);
+                            this.fillPubInventory();
+                        }
                     }
                 }
             }

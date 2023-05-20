@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Sword extends Weapon {
     public Sword() {
-        super(new ImageReader().getBufferedImage("res/item/weapons/sword.png"), 20, 4);
+        super(new ImageReader().getBufferedImage("res/items/weapons/sword.png"), 4);
     }
 
     public boolean isKillingOnOneHit() {

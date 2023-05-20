@@ -6,7 +6,7 @@ import java.util.Random;
 public class StrongShield extends Shield {
 
     public StrongShield() {
-        super(new ImageReader().getBufferedImage("res/items/shields/strongShield.png"), 20, 4);
+        super(new ImageReader().getBufferedImage("res/items/shields/strongShield.png"), 4);
     }
 
     public boolean isTakingAllDamage() {
