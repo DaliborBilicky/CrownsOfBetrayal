@@ -2,7 +2,9 @@ package dalibor.crownsofbetrayal.characters;
 
 import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.NoItem;
-import dalibor.crownsofbetrayal.items.armor.Shield;
+import dalibor.crownsofbetrayal.items.shields.StrongShield;
+import dalibor.crownsofbetrayal.items.weapons.Saw;
+import dalibor.crownsofbetrayal.items.weapons.Sword;
 import dalibor.crownsofbetrayal.items.weapons.Weapon;
 import dalibor.crownsofbetrayal.main.Game;
 import java.awt.Color;
@@ -35,8 +37,8 @@ public class Player {
         this.game = game;
         this.damage = 10;
         this.inventory = new ArrayList<>();
-        this.inventory.add(new Shield());
-        this.inventory.add(new Weapon());
+        this.inventory.add(new StrongShield());
+        this.inventory.add(new Sword());
     }
 
     public void draw(Graphics2D g2D) {
@@ -119,12 +121,26 @@ public class Player {
     }
 
     public int dealDamage() {
-        return this.damage;
+        if (this.weapon instanceof Sword &&
+            ((Sword)this.weapon).isKillingOnOneHit()) {
+            return Integer.MAX_VALUE;
+        } else if (this.weapon instanceof Saw &&
+            ((Saw)this.weapon).isDoubleTheDamage()) {
+            return this.damage *
+                ((Weapon)this.weapon).getDamageMultiplication() * 2;
+        }
+        return this.damage * ((Weapon)this.weapon).getDamageMultiplication();
     }
 
     public void takeDamage(int takenDamage) {
         if (this.health >= 0) {
-            this.health -= takenDamage;
+            if (this.shield instanceof StrongShield) {
+                if (!((StrongShield)this.shield).isTakingAllDamage()) {
+                    this.health -= takenDamage;
+                }
+            } else {
+                this.health -= takenDamage;
+            }
         }
     }
 

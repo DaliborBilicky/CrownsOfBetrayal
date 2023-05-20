@@ -9,6 +9,7 @@ import dalibor.crownsofbetrayal.characters.enemies.Thief;
 import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.EnemyButton;
 import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
+import dalibor.crownsofbetrayal.items.weapons.Bow;
 import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
@@ -143,6 +144,9 @@ public class Dungeon extends State {
             this.enemies.clear();
             if (this.getPlayer().getHealth() <= 0) {
                 this.getPlayer().resetHealth();
+            } else {
+                int tempSupplies = this.getPlayer().getSupplies();
+                this.getPlayer().setSupplies(tempSupplies - 10);
             }
         }
         if (this.getPlayer().getHealth() > 0) {
@@ -151,8 +155,16 @@ public class Dungeon extends State {
                     if (this.enemyButtons.get(i).getButtonBounds()
                         .contains(event.getX(), event.getY()) &&
                         !this.enemies.isEmpty()) {
-                        this.enemies.get(i).takeDamage(
-                            this.getPlayer().dealDamage());
+                        if (this.getPlayer().getWeapon() instanceof Bow &&
+                            ((Bow)this.getPlayer().getWeapon())
+                                .isDealingMultipleHits()) {
+                            for (Enemy enemy : this.enemies) {
+                                enemy.takeDamage(this.getPlayer().dealDamage());
+                            }
+                        } else {
+                            this.enemies.get(i).takeDamage(
+                                this.getPlayer().dealDamage());
+                        }
                         this.enemies.get(i).setTakingDamage(true);
                         this.getPlayer().setOnMove(false);
                         break;

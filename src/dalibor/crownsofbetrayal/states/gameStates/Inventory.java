@@ -6,7 +6,7 @@ import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
 import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.NoItem;
 import dalibor.crownsofbetrayal.items.Wearable;
-import dalibor.crownsofbetrayal.items.armor.Shield;
+import dalibor.crownsofbetrayal.items.shields.Shield;
 import dalibor.crownsofbetrayal.items.weapons.Weapon;
 import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;

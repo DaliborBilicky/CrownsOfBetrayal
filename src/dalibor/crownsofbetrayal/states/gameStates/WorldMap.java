@@ -5,6 +5,8 @@ import dalibor.crownsofbetrayal.graphics.ui.StateButton;
 import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
@@ -52,6 +54,12 @@ public class WorldMap extends State {
         for (StateButton stateButton : this.stateButtons) {
             stateButton.draw(g2D);
         }
+        g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 45));
+        g2D.setColor(Color.WHITE);
+        g2D.drawString(
+            String.valueOf(this.getPlayer().getSupplies()),
+            (int)(this.getWindowWidth() * 0.25),
+            (int)(this.getWindowHeight() * 0.22));
     }
 
     @Override
@@ -79,6 +87,8 @@ public class WorldMap extends State {
             if (button.getButtonBounds().contains(event.getX(), event.getY())) {
                 this.getCurrentState().setState(States.DUNGEON);
                 this.getGame().getDungeon().setDungeon();
+                int tempSupplies = this.getPlayer().getSupplies();
+                this.getPlayer().setSupplies(tempSupplies - 10);
             }
         }
     }

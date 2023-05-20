@@ -159,7 +159,6 @@ public class Pub extends State {
             String.valueOf(this.getPlayer().getSupplies()),
             (int)(this.getWindowWidth() * 0.33),
             (int)(this.getWindowHeight() * 0.815));
-
     }
 
     @Override
