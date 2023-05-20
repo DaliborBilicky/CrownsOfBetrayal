@@ -43,7 +43,7 @@ public class Game implements Runnable {
     public Game() {
         this.scale = (double)EXPECTED_WINDOW_WIDTH / WINDOW_WIDTH;
 
-        this.player = new Player();
+        this.player = new Player(this);
 
         this.currentState = new CurrentState();
         this.menu = new Menu(this);
@@ -57,14 +57,6 @@ public class Game implements Runnable {
         this.dungeon = new Dungeon(this);
 
         this.frame = new Frame(this);
-    }
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public double getScale() {
-        return this.scale;
     }
 
     public void startGameLoop() {
@@ -187,6 +179,14 @@ public class Game implements Runnable {
 
     public int getHeight() {
         return WINDOW_HEIGHT;
+    }
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public double getScale() {
+        return this.scale;
     }
 
 }

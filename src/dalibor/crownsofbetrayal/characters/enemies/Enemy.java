@@ -14,14 +14,12 @@ public abstract class Enemy {
     private int x;
     private int y;
     private int size;
-    private boolean dead;
 
     public Enemy(BufferedImage imageRepresentation, int maxHealth, int damage) {
         this.imageRepresentation = imageRepresentation;
         this.health = maxHealth;
         this.damage = damage;
         this.takingDamage = false;
-        this.dead = false;
     }
 
     public void setImageLocation(int x, int y, int size) {
@@ -38,9 +36,19 @@ public abstract class Enemy {
             this.size,
             this.size,
             null);
+        g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 115));
+        g2D.setColor(Color.BLACK);
+        g2D.drawString(
+            String.valueOf(this.health),
+            (int)(this.x - (this.size * 0.45)),
+            (int)(this.y + (this.size * 0.7)));
+        g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 135));
+        g2D.setColor(Color.RED);
+        g2D.drawString(
+            String.valueOf(this.health),
+            this.x - (this.size / 2),
+            (int)(this.y + (this.size * 0.7)));
         if (this.takingDamage) {
-            g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 135));
-            g2D.setColor(Color.RED);
             g2D.drawString(
                 "HIT",
                 this.x - (this.size / 2),
@@ -62,12 +70,9 @@ public abstract class Enemy {
     }
 
     public void takeDamage(int takenDamage) {
-        if (this.health > 0) {
+        if (this.health >= 0) {
             this.health -= takenDamage;
-        } else {
-            this.dead = true;
         }
-
     }
 
     public int getHealth() {
@@ -86,9 +91,5 @@ public abstract class Enemy {
 
     public void setTakingDamage(boolean takingDamage) {
         this.takingDamage = takingDamage;
-    }
-
-    public boolean isDead() {
-        return this.dead;
     }
 }

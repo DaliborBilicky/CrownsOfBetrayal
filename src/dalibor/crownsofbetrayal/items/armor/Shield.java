@@ -7,7 +7,12 @@ import dalibor.crownsofbetrayal.items.Storable;
 import dalibor.crownsofbetrayal.items.Wearable;
 
 public class Shield extends Item implements Wearable, Storable, Sellable {
+
+
     public Shield() {
-        this.setImage(new ImageReader().getBufferedImage("res/items/shields/shield.png"));
+        super(new ImageReader().getBufferedImage("res/items/shields/shield.png"));
+
     }
+
+
 }

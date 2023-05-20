@@ -12,6 +12,8 @@ import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
 import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -25,11 +27,12 @@ public class Dungeon extends State {
     private int numberOfEnemies;
 
     public Dungeon(Game game) {
-        super(game, new ImageReader().getBufferedImage("res/bg/dungeon.png"));
+        super(game, new ImageReader()
+            .getBufferedImage("res/bg/dungeon.png"));
         this.random = new Random();
         this.enemyButtons = new ArrayList<>();
         this.enemies = new ArrayList<>();
-        this.itemButtons = new ItemButton[2][7];
+        this.itemButtons = new ItemButton[2][6];
         this.setItemButtons();
     }
 
@@ -83,6 +86,12 @@ public class Dungeon extends State {
     @Override
     public void draw(Graphics2D g2D) {
         super.draw(g2D);
+        g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 60));
+        g2D.setColor(Color.WHITE);
+        g2D.drawString(
+            String.valueOf(this.getPlayer().getHealth()),
+            (int)(this.getWindowWidth() * 0.22),
+            (int)(this.getWindowHeight() * 0.51));
         if (!this.enemies.isEmpty()) {
             for (int i = 0; i < this.numberOfEnemies; i++) {
                 this.enemies.get(i).drawEnemy(g2D);
@@ -94,6 +103,7 @@ public class Dungeon extends State {
                 itemButton.draw(g2D);
             }
         }
+        this.getPlayer().draw(g2D);
     }
 
     @Override
@@ -101,8 +111,9 @@ public class Dungeon extends State {
         if (!this.getPlayer().isOnMove()) {
             if (!this.enemies.isEmpty()) {
                 for (int i = 0; i < this.numberOfEnemies; i++) {
-                    this.getPlayer().takeDamage(this.enemies.get(i).dealDamage());
-                    if (this.enemies.get(i).isDead()) {
+                    this.getPlayer().takeDamage(
+                        this.enemies.get(i).dealDamage());
+                    if (this.enemies.get(i).getHealth() <= 0) {
                         this.enemies.remove(this.enemies.get(i));
                         this.enemyButtons.remove(this.enemyButtons.get(i));
                         this.numberOfEnemies--;
@@ -130,16 +141,22 @@ public class Dungeon extends State {
             this.getCurrentState().setState(States.WORLD_MAP);
             this.enemyButtons.clear();
             this.enemies.clear();
+            if (this.getPlayer().getHealth() <= 0) {
+                this.getPlayer().resetHealth();
+            }
         }
-        if (!this.enemies.isEmpty()) {
-            for (int i = 0; i < this.numberOfEnemies; i++) {
-                if (this.enemyButtons.get(i).getButtonBounds()
-                    .contains(event.getX(), event.getY()) &&
-                    !this.enemies.isEmpty()) {
-                    this.enemies.get(i).takeDamage(this.getPlayer().dealDamage());
-                    this.enemies.get(i).setTakingDamage(true);
-                    this.getPlayer().setOnMove(false);
-                    break;
+        if (this.getPlayer().getHealth() > 0) {
+            if (!this.enemies.isEmpty()) {
+                for (int i = 0; i < this.numberOfEnemies; i++) {
+                    if (this.enemyButtons.get(i).getButtonBounds()
+                        .contains(event.getX(), event.getY()) &&
+                        !this.enemies.isEmpty()) {
+                        this.enemies.get(i).takeDamage(
+                            this.getPlayer().dealDamage());
+                        this.enemies.get(i).setTakingDamage(true);
+                        this.getPlayer().setOnMove(false);
+                        break;
+                    }
                 }
             }
         }
@@ -147,23 +164,25 @@ public class Dungeon extends State {
 
     @Override
     public void mouseMoved(MouseEvent event) {
-        if (!this.enemies.isEmpty()) {
-            for (int i = 0; i < this.numberOfEnemies; i++) {
-                this.enemyButtons.get(i).setMouseIn(false);
-                if (this.enemyButtons.get(i).getButtonBounds()
-                    .contains(event.getX(), event.getY())) {
-                    this.enemyButtons.get(i).setMouseIn(true);
-                } else {
-                    this.enemies.get(i).setTakingDamage(false);
+        if (this.getPlayer().getHealth() > 0) {
+            if (!this.enemies.isEmpty()) {
+                for (int i = 0; i < this.numberOfEnemies; i++) {
+                    this.enemyButtons.get(i).setMouseIn(false);
+                    if (this.enemyButtons.get(i).getButtonBounds()
+                        .contains(event.getX(), event.getY())) {
+                        this.enemyButtons.get(i).setMouseIn(true);
+                    } else {
+                        this.enemies.get(i).setTakingDamage(false);
+                    }
                 }
             }
-        }
-        for (ItemButton[] itemButtonsList : this.itemButtons) {
-            for (ItemButton itemButton : itemButtonsList) {
-                itemButton.setMouseIn(false);
-                if (itemButton.getButtonBounds()
-                    .contains(event.getX(), event.getY())) {
-                    itemButton.setMouseIn(true);
+            for (ItemButton[] itemButtonsList : this.itemButtons) {
+                for (ItemButton itemButton : itemButtonsList) {
+                    itemButton.setMouseIn(false);
+                    if (itemButton.getButtonBounds()
+                        .contains(event.getX(), event.getY())) {
+                        itemButton.setMouseIn(true);
+                    }
                 }
             }
         }
