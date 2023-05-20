@@ -1,10 +1,7 @@
 package dalibor.crownsofbetrayal.characters;
 
 import dalibor.crownsofbetrayal.items.Item;
-import dalibor.crownsofbetrayal.items.Sellable;
-import dalibor.crownsofbetrayal.items.Storable;
-import dalibor.crownsofbetrayal.items.Usable;
-import dalibor.crownsofbetrayal.items.UsableForCrafting;
+import dalibor.crownsofbetrayal.items.NoItem;
 import dalibor.crownsofbetrayal.items.armor.Shield;
 import dalibor.crownsofbetrayal.items.weapons.Weapon;
 import dalibor.crownsofbetrayal.main.Game;
@@ -25,19 +22,19 @@ public class Player {
     private boolean onMove;
     private int health;
     private int supplies;
+    private int goldCoins;
 
     public Player(Game game) {
-        this.supplies = SUPPLIES_CAPACITY;
+        this.supplies = SUPPLIES_CAPACITY - 25;
+        this.goldCoins = 10;
         this.maxHealth = 100;
         this.onMove = true;
         this.health = this.maxHealth;
-        this.shield = new Item();
-        this.weapon = new Item();
+        this.shield = new NoItem();
+        this.weapon = new NoItem();
         this.game = game;
         this.damage = 10;
         this.inventory = new ArrayList<>();
-        this.inventory.add(new Shield());
-        this.inventory.add(new Weapon());
         this.inventory.add(new Shield());
         this.inventory.add(new Weapon());
     }
@@ -65,12 +62,13 @@ public class Player {
         return this.supplies;
     }
 
-    public void setSupplies(int supplies) throws CapacityOverflowException {
-        if (this.supplies != SUPPLIES_CAPACITY) {
+    public void setSupplies(int supplies) {
+        if (this.supplies + supplies < SUPPLIES_CAPACITY) {
             this.supplies = supplies;
         } else {
-            throw new CapacityOverflowException();
+            this.supplies = SUPPLIES_CAPACITY;
         }
+        System.out.println(this.supplies);
     }
 
     public boolean isSuppliesFull() {
@@ -79,40 +77,14 @@ public class Player {
 
     public Item getItemFromInventory(int index) {
         if (!this.inventory.isEmpty() && index < this.inventory.size()) {
-            switch (this.game.getCurrentState().getState()) {
-                case INVENTORY, EXIT, GAME_MENU, MENU, WORLD_MAP, QUESTS -> {
-                    return this.inventory.get(index);
-                }
-                case PUB -> {
-                    if (this.inventory.get(index) instanceof Storable) {
-                        return this.inventory.get(index);
-                    }
-                }
-                case SHOP -> {
-                    if (this.inventory.get(index) instanceof Sellable) {
-                        return this.inventory.get(index);
-                    }
-                }
-                case CRAFTING -> {
-                    if (this.inventory.get(index) instanceof UsableForCrafting) {
-                        return this.inventory.get(index);
-                    }
-                }
-                case DUNGEON -> {
-                    if (this.inventory.get(index) instanceof Usable) {
-                        return this.inventory.get(index);
-                    }
-                }
-            }
+            return this.inventory.get(index);
         }
-        return new Item();
+        return new NoItem();
     }
 
-    public void putItemInInventory(Item item) throws CapacityOverflowException {
+    public void putItemToInventory(Item item) {
         if (this.inventory.size() < INVENTORY_CAPACITY) {
             this.inventory.add(item);
-        } else {
-            throw new CapacityOverflowException();
         }
     }
 
@@ -182,5 +154,21 @@ public class Player {
 
     public void setWeapon(Item weapon) {
         this.weapon = weapon;
+    }
+
+    public void gainGold(int numOfCoins) {
+        this.goldCoins += numOfCoins;
+    }
+
+    public boolean isInventoryNotEmpty() {
+        return !this.inventory.isEmpty();
+    }
+
+    public void looseGold(int numOfCoins) {
+        this.goldCoins -= numOfCoins;
+    }
+
+    public int getGoldCoins() {
+        return this.goldCoins;
     }
 }

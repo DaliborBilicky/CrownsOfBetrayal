@@ -3,14 +3,12 @@ package dalibor.crownsofbetrayal.main;
 import dalibor.crownsofbetrayal.characters.Player;
 import dalibor.crownsofbetrayal.graphics.window.Frame;
 import dalibor.crownsofbetrayal.states.CurrentState;
-import dalibor.crownsofbetrayal.states.gameStates.Crafting;
 import dalibor.crownsofbetrayal.states.gameStates.Dungeon;
 import dalibor.crownsofbetrayal.states.gameStates.GameMenu;
 import dalibor.crownsofbetrayal.states.gameStates.Inventory;
 import dalibor.crownsofbetrayal.states.gameStates.Menu;
 import dalibor.crownsofbetrayal.states.gameStates.Pub;
 import dalibor.crownsofbetrayal.states.gameStates.Quests;
-import dalibor.crownsofbetrayal.states.gameStates.Shop;
 import dalibor.crownsofbetrayal.states.gameStates.WorldMap;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -33,8 +31,6 @@ public class Game implements Runnable {
     private final Inventory inventory;
     private final Pub pub;
     private final Quests quests;
-    private final Shop shop;
-    private final Crafting crafting;
     private final WorldMap worldMap;
     private final Player player;
     private final double scale;
@@ -51,8 +47,6 @@ public class Game implements Runnable {
         this.inventory = new Inventory(this);
         this.pub = new Pub(this);
         this.quests = new Quests(this);
-        this.shop = new Shop(this);
-        this.crafting = new Crafting(this);
         this.worldMap = new WorldMap(this);
         this.dungeon = new Dungeon(this);
 
@@ -111,10 +105,8 @@ public class Game implements Runnable {
             case GAME_MENU -> this.gameMenu.update();
             case INVENTORY -> this.inventory.update();
             case PUB -> this.pub.update();
-            case SHOP -> this.shop.update();
             case WORLD_MAP -> this.worldMap.update();
             case QUESTS -> this.quests.update();
-            case CRAFTING -> this.crafting.update();
             case DUNGEON -> this.dungeon.update();
         }
     }
@@ -125,10 +117,8 @@ public class Game implements Runnable {
             case GAME_MENU -> this.gameMenu.draw(g2D);
             case INVENTORY -> this.inventory.draw(g2D);
             case PUB -> this.pub.draw(g2D);
-            case SHOP -> this.shop.draw(g2D);
             case WORLD_MAP -> this.worldMap.draw(g2D);
             case QUESTS -> this.quests.draw(g2D);
-            case CRAFTING -> this.crafting.draw(g2D);
             case DUNGEON -> this.dungeon.draw(g2D);
         }
     }
@@ -155,14 +145,6 @@ public class Game implements Runnable {
 
     public Quests getQuests() {
         return this.quests;
-    }
-
-    public Shop getShop() {
-        return this.shop;
-    }
-
-    public Crafting getCrafting() {
-        return this.crafting;
     }
 
     public WorldMap getWorldMap() {

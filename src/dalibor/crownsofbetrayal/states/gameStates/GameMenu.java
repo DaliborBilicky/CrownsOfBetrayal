@@ -14,7 +14,7 @@ public class GameMenu extends State {
 
     public GameMenu(Game game) {
         super(game, new ImageReader().getBufferedImage("res/bg/game_menu.png"));
-        this.buttons = new StateButton[6];
+        this.buttons = new StateButton[4];
         this.setButtons();
     }
 
@@ -22,7 +22,7 @@ public class GameMenu extends State {
         for (int i = 0; i < this.buttons.length / 2; i++) {
             this.buttons[i] = new StateButton(
                 (int)(this.getWindowWidth() * 0.275),
-                (int)(this.getWindowHeight() * (0.33 + (0.22 * i))),
+                (int)(this.getWindowHeight() * (0.39 + (0.26 * i))),
                 (int)(700 / this.getScale()),
                 (int)(150 / this.getScale()));
             this.buttons[i].setCurrentState(this.getCurrentState());
@@ -31,17 +31,15 @@ public class GameMenu extends State {
             this.buttons[i] = new StateButton(
                 (int)(this.getWindowWidth() * 0.73),
                 (int)(this.getWindowHeight() *
-                    (0.33 + (0.22 * (i - this.buttons.length / 2)))),
+                    (0.39 + (0.26 * (i - this.buttons.length / 2)))),
                 (int)(700 / this.getScale()),
                 (int)(150 / this.getScale()));
             this.buttons[i].setCurrentState(this.getCurrentState());
         }
         this.buttons[0].setState(States.PUB);
-        this.buttons[1].setState(States.SHOP);
-        this.buttons[2].setState(States.QUESTS);
-        this.buttons[3].setState(States.INVENTORY);
-        this.buttons[4].setState(States.CRAFTING);
-        this.buttons[5].setState(States.WORLD_MAP);
+        this.buttons[1].setState(States.QUESTS);
+        this.buttons[2].setState(States.INVENTORY);
+        this.buttons[3].setState(States.WORLD_MAP);
     }
 
     @Override
@@ -76,7 +74,8 @@ public class GameMenu extends State {
         for (StateButton button : this.buttons) {
             if (button.getButtonBounds().contains(event.getX(), event.getY())) {
                 button.applyState();
-                button.setMouseIn(false);
+                this.getGame().getPub().fillPubInventory();
+                this.getGame().getInventory().fillInventory();
             }
         }
     }

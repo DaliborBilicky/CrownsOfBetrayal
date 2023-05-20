@@ -1,10 +1,10 @@
 package dalibor.crownsofbetrayal.states.gameStates;
 
-import dalibor.crownsofbetrayal.characters.CapacityOverflowException;
 import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.Button;
 import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
 import dalibor.crownsofbetrayal.items.Item;
+import dalibor.crownsofbetrayal.items.NoItem;
 import dalibor.crownsofbetrayal.items.Wearable;
 import dalibor.crownsofbetrayal.items.armor.Shield;
 import dalibor.crownsofbetrayal.items.weapons.Weapon;
@@ -13,7 +13,6 @@ import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import javax.swing.JOptionPane;
 
 public class Inventory extends State {
     private final Item[][] inventory;
@@ -51,7 +50,7 @@ public class Inventory extends State {
         }
     }
 
-    private void fillInventory() {
+    public void fillInventory() {
         for (int i = 0; i < this.inventory.length; i++) {
             for (int j = 0; j < this.inventory[i].length; j++) {
                 Item tempItem = this.getPlayer().getItemFromInventory(
@@ -60,6 +59,7 @@ public class Inventory extends State {
                 tempItem.setJ(j);
                 this.inventory[i][j] = tempItem;
             }
+
         }
     }
 
@@ -85,14 +85,12 @@ public class Inventory extends State {
 
         for (int i = 0; i < this.inventory.length; i++) {
             for (int j = 0; j < this.inventory[i].length; j++) {
-                g2D.drawImage(this.inventory[i][j].getImage(),
-                    (int)((this.getWindowWidth() * 0.44 +
-                        (175 / this.getScale() * j)) - 87.5),
-                    (int)((this.getWindowHeight() * 0.28 +
-                        (175 / this.getScale() * i)) - 87.5),
-                    (int)(175 / this.getScale()),
-                    (int)(175 / this.getScale()),
-                    null);
+                this.inventory[i][j].draw(g2D,
+                    (int)(this.getWindowWidth() * 0.44 +
+                        (175 / this.getScale() * j)),
+                    (int)(this.getWindowHeight() * 0.28 +
+                        (175 / this.getScale() * i)),
+                    (int)(175 / this.getScale()));
             }
         }
     }
@@ -141,26 +139,19 @@ public class Inventory extends State {
             }
         }
         for (int i = 0; i < this.gearButtons.length; i++) {
-            try {
-                if (this.gearButtons[i].getButtonBounds()
-                    .contains(event.getX(), event.getY())) {
-                    if (i == 0) {
-                        this.getPlayer().putItemInInventory(
-                            this.getPlayer().getWeapon());
-                        this.getPlayer().setWeapon(new Item());
-                    } else {
-                        this.getPlayer().putItemInInventory(
-                            this.getPlayer().getShield());
-                        this.getPlayer().setShield(new Item());
-                    }
-                    this.fillInventory();
+            if (this.gearButtons[i].getButtonBounds()
+                .contains(event.getX(), event.getY())) {
+                if (i == 0) {
+                    this.getPlayer().putItemToInventory(
+                        this.getPlayer().getWeapon());
+                    this.getPlayer().setWeapon(new NoItem());
+                } else {
+                    this.getPlayer().putItemToInventory(
+                        this.getPlayer().getShield());
+                    this.getPlayer().setShield(new NoItem());
                 }
-            } catch (CapacityOverflowException e) {
-                JOptionPane.showMessageDialog(
-                    null,
-                    e.getMessage());
+                this.fillInventory();
             }
-
         }
     }
 

@@ -21,11 +21,9 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case INVENTORY ->
                 this.panel.getGame().getInventory().mouseClicked(e);
             case PUB -> this.panel.getGame().getPub().mouseClicked(e);
-            case SHOP -> this.panel.getGame().getShop().mouseClicked(e);
             case WORLD_MAP ->
                 this.panel.getGame().getWorldMap().mouseClicked(e);
             case QUESTS -> this.panel.getGame().getQuests().mouseClicked(e);
-            case CRAFTING -> this.panel.getGame().getCrafting().mouseClicked(e);
             case DUNGEON -> this.panel.getGame().getDungeon().mouseClicked(e);
         }
     }
@@ -38,10 +36,8 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case INVENTORY ->
                 this.panel.getGame().getInventory().mosePressed(e);
             case PUB -> this.panel.getGame().getPub().mosePressed(e);
-            case SHOP -> this.panel.getGame().getShop().mosePressed(e);
             case WORLD_MAP -> this.panel.getGame().getWorldMap().mosePressed(e);
             case QUESTS -> this.panel.getGame().getQuests().mosePressed(e);
-            case CRAFTING -> this.panel.getGame().getCrafting().mosePressed(e);
             case DUNGEON -> this.panel.getGame().getDungeon().mosePressed(e);
         }
     }
@@ -55,11 +51,9 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case INVENTORY ->
                 this.panel.getGame().getInventory().moseReleased(e);
             case PUB -> this.panel.getGame().getPub().moseReleased(e);
-            case SHOP -> this.panel.getGame().getShop().moseReleased(e);
             case WORLD_MAP ->
                 this.panel.getGame().getWorldMap().moseReleased(e);
             case QUESTS -> this.panel.getGame().getQuests().moseReleased(e);
-            case CRAFTING -> this.panel.getGame().getCrafting().moseReleased(e);
             case DUNGEON -> this.panel.getGame().getDungeon().moseReleased(e);
         }
     }
@@ -86,10 +80,8 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case GAME_MENU -> this.panel.getGame().getGameMenu().mouseMoved(e);
             case INVENTORY -> this.panel.getGame().getInventory().mouseMoved(e);
             case PUB -> this.panel.getGame().getPub().mouseMoved(e);
-            case SHOP -> this.panel.getGame().getShop().mouseMoved(e);
             case WORLD_MAP -> this.panel.getGame().getWorldMap().mouseMoved(e);
             case QUESTS -> this.panel.getGame().getQuests().mouseMoved(e);
-            case CRAFTING -> this.panel.getGame().getCrafting().mouseMoved(e);
             case DUNGEON -> this.panel.getGame().getDungeon().mouseMoved(e);
         }
     }

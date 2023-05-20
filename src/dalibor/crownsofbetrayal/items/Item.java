@@ -4,12 +4,14 @@ import dalibor.crownsofbetrayal.graphics.ImageReader;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-public class Item {
+public abstract class Item {
     private BufferedImage image;
+    private int goldValue;
     private int i;
     private int j;
 
-    public Item(BufferedImage image) {
+    public Item(BufferedImage image, int goldValue) {
+        this.goldValue = goldValue;
         this.image = image;
         this.i = 0;
         this.j = 0;
@@ -51,5 +53,9 @@ public class Item {
 
     public void setJ(int j) {
         this.j = j;
+    }
+
+    public int getGoldValue() {
+        return this.goldValue;
     }
 }
