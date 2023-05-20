@@ -1,6 +1,6 @@
 package dalibor.crownsofbetrayal.items.weapons;
 
-import dalibor.crownsofbetrayal.graphics.ImageReader;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 import java.util.Random;
 
 public class Sword extends Weapon {

@@ -1,11 +1,11 @@
 package dalibor.crownsofbetrayal.states.gameStates;
 
-import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.graphics.ui.Button;
 import dalibor.crownsofbetrayal.graphics.ui.QuestButton;
 import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 

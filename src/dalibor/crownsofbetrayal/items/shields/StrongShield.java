@@ -1,6 +1,6 @@
 package dalibor.crownsofbetrayal.items.shields;
 
-import dalibor.crownsofbetrayal.graphics.ImageReader;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 import java.util.Random;
 
 public class StrongShield extends Shield {

@@ -1,7 +1,7 @@
 package dalibor.crownsofbetrayal.graphics.window;
 
-import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.main.Game;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 import java.awt.Cursor;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;

@@ -1,10 +1,10 @@
 package dalibor.crownsofbetrayal.items.usableItems;
 
 import dalibor.crownsofbetrayal.characters.Player;
-import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.Sellable;
 import dalibor.crownsofbetrayal.items.Usable;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 
 public class Adrenaline extends Item implements Usable, Sellable {
     private int price;

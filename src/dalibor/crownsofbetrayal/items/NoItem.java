@@ -1,7 +1,7 @@
 package dalibor.crownsofbetrayal.items;
 
 import dalibor.crownsofbetrayal.characters.Player;
-import dalibor.crownsofbetrayal.graphics.ImageReader;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 
 public class NoItem extends Item implements Sellable, Usable {
     private int price;

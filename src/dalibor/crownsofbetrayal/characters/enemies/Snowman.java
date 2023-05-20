@@ -1,7 +1,7 @@
 package dalibor.crownsofbetrayal.characters.enemies;
 
 import dalibor.crownsofbetrayal.characters.Player;
-import dalibor.crownsofbetrayal.graphics.ImageReader;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 
 public class Snowman extends Enemy {
     public Snowman() {

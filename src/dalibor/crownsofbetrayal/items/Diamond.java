@@ -1,6 +1,6 @@
 package dalibor.crownsofbetrayal.items;
 
-import dalibor.crownsofbetrayal.graphics.ImageReader;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 
 public class Diamond extends Item implements Sellable {
 

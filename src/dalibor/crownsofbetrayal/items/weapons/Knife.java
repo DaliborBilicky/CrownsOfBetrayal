@@ -1,7 +1,7 @@
 package dalibor.crownsofbetrayal.items.weapons;
 
-import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.items.Sellable;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 
 public class Knife extends Weapon implements Sellable {
     private int price;

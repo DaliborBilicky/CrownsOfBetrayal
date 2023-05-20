@@ -1,7 +1,7 @@
 package dalibor.crownsofbetrayal.items.shields;
 
-import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.items.Sellable;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 
 public class WeakShield extends Shield implements Sellable {
     private int price;

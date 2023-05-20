@@ -1,4 +1,4 @@
-package dalibor.crownsofbetrayal.graphics;
+package dalibor.crownsofbetrayal.tools;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

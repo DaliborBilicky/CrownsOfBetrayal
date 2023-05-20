@@ -1,8 +1,8 @@
 package dalibor.crownsofbetrayal.graphics.ui;
 
-import dalibor.crownsofbetrayal.graphics.ImageReader;
 import dalibor.crownsofbetrayal.states.CurrentState;
 import dalibor.crownsofbetrayal.states.States;
+import dalibor.crownsofbetrayal.tools.ImageReader;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
