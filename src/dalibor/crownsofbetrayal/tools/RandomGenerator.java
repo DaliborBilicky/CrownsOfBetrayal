@@ -1,5 +1,12 @@
 package dalibor.crownsofbetrayal.tools;
 
+import dalibor.crownsofbetrayal.characters.Player;
+import dalibor.crownsofbetrayal.characters.enemies.Enemy;
+import dalibor.crownsofbetrayal.characters.enemies.Ghost;
+import dalibor.crownsofbetrayal.characters.enemies.Jellyfish;
+import dalibor.crownsofbetrayal.characters.enemies.Scarecrow;
+import dalibor.crownsofbetrayal.characters.enemies.Snowman;
+import dalibor.crownsofbetrayal.characters.enemies.Thief;
 import dalibor.crownsofbetrayal.items.Diamond;
 import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.shields.StrongShield;
@@ -12,6 +19,10 @@ import dalibor.crownsofbetrayal.items.weapons.Bow;
 import dalibor.crownsofbetrayal.items.weapons.Knife;
 import dalibor.crownsofbetrayal.items.weapons.Saw;
 import dalibor.crownsofbetrayal.items.weapons.Sword;
+import dalibor.crownsofbetrayal.quests.DungeonVisitingQuest;
+import dalibor.crownsofbetrayal.quests.ItemCollectionQuest;
+import dalibor.crownsofbetrayal.quests.KillingQuest;
+import dalibor.crownsofbetrayal.quests.Quest;
 import java.util.Random;
 
 /**
@@ -71,6 +82,40 @@ public class RandomGenerator {
             return new Beer();
         } else {
             return new Apple();
+        }
+    }
+
+    /**
+     * @return nahodny nepriatel
+     */
+    public Enemy getEnemy() {
+        int probability = this.random.nextInt(1, 101);
+        if (0 <= probability && probability < 20) {
+            return new Ghost();
+        } else if (20 <= probability && probability < 40) {
+            return new Snowman();
+        } else if (40 <= probability && probability < 60) {
+            return new Scarecrow();
+        } else if (60 <= probability && probability < 80) {
+            return new Thief();
+        } else {
+            return new Jellyfish();
+        }
+    }
+
+
+    /**
+     * @param player hrac
+     * @return nahodny quest
+     */
+    public Quest getQuest(Player player) {
+        int probability = this.random.nextInt(1, 101);
+        if (0 <= probability && probability < 34) {
+            return new KillingQuest(player);
+        } else if (34 <= probability && probability < 68) {
+            return new ItemCollectionQuest(player);
+        } else {
+            return new DungeonVisitingQuest(player);
         }
     }
 }

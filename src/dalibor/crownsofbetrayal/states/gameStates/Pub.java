@@ -7,6 +7,7 @@ import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.NoItem;
 import dalibor.crownsofbetrayal.items.Sellable;
 import dalibor.crownsofbetrayal.main.Game;
+import dalibor.crownsofbetrayal.quests.Quest;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import dalibor.crownsofbetrayal.tools.ImageReader;
@@ -29,6 +30,7 @@ public class Pub extends State {
     private final Item[][] pubInventory;
     private final ArrayList<Item> shop;
     private final Item[][] shopInventory;
+    private final Quest[] pubQuests;
 
     /**
      * Natvrdo nastavene pozadie
@@ -43,6 +45,7 @@ public class Pub extends State {
         this.pubInventory = new Item[4][3];
         this.shopInventory = new Item[4][2];
         this.shop = new ArrayList<>();
+        this.pubQuests = new Quest[3];
         this.setButtons();
         this.fillPubInventory();
     }
@@ -123,6 +126,13 @@ public class Pub extends State {
         }
     }
 
+    public void generateQuests() {
+        RandomGenerator rG = new RandomGenerator();
+        for (int i = 0; i < this.pubQuests.length; i++) {
+            this.pubQuests[i] = rG.getQuest(this.getPlayer());
+        }
+    }
+
     /**
      * Naplnenie obchodu
      */
@@ -199,7 +209,6 @@ public class Pub extends State {
                 }
             }
         }
-
         g2D.setColor(Color.WHITE);
         g2D.drawString(
             String.valueOf(this.getPlayer().getGoldCoins()),
@@ -209,11 +218,21 @@ public class Pub extends State {
             String.valueOf(this.getPlayer().getSupplies()),
             (int)(this.getWindowWidth() * 0.33),
             (int)(this.getWindowHeight() * 0.815));
+
+        g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 40));
+        for (int i = 0; i < this.pubQuests.length; i++) {
+            g2D.drawString(this.pubQuests[i].getDescription(),
+                (int)(this.getWindowWidth() * 0.08),
+                (int)(this.getWindowHeight() * 0.27 + (165 * i)));
+        }
     }
 
+    /**
+     * Kontroluje ci hrac nema splneny quest
+     */
     @Override
     public void update() {
-
+        this.getPlayer().removeDoneQuests();
     }
 
     /**
@@ -274,6 +293,9 @@ public class Pub extends State {
                         this.getPlayer().setSupplies(tempSupplies + 25);
                         this.getPlayer().looseGold(15);
                     }
+                } else {
+                    this.getPlayer().setNewQuest(this.pubQuests[i]);
+                    this.pubQuests[i] = new Quest(this.getPlayer(), 0);
                 }
             }
         }

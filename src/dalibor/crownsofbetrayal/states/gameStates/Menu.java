@@ -58,8 +58,12 @@ public class Menu extends State {
         }
     }
 
+    /**
+     * Kontroluje ci hrac nema splneny quest
+     */
     @Override
     public void update() {
+        this.getPlayer().removeDoneQuests();
     }
 
     /**

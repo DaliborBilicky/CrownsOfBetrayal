@@ -14,7 +14,7 @@ public class Thief extends Enemy {
     public Thief() {
         super(new ImageReader()
                 .getBufferedImage("res/characters/thief.png"),
-            100, 5);
+            "thief", 100, 5);
     }
 
 

@@ -1,11 +1,6 @@
 package dalibor.crownsofbetrayal.states.gameStates;
 
 import dalibor.crownsofbetrayal.characters.enemies.Enemy;
-import dalibor.crownsofbetrayal.characters.enemies.Ghost;
-import dalibor.crownsofbetrayal.characters.enemies.Jellyfish;
-import dalibor.crownsofbetrayal.characters.enemies.Scarecrow;
-import dalibor.crownsofbetrayal.characters.enemies.Snowman;
-import dalibor.crownsofbetrayal.characters.enemies.Thief;
 import dalibor.crownsofbetrayal.graphics.ui.EnemyButton;
 import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
 import dalibor.crownsofbetrayal.items.Item;
@@ -13,6 +8,7 @@ import dalibor.crownsofbetrayal.items.NoItem;
 import dalibor.crownsofbetrayal.items.Usable;
 import dalibor.crownsofbetrayal.items.weapons.Bow;
 import dalibor.crownsofbetrayal.main.Game;
+import dalibor.crownsofbetrayal.quests.KillingQuest;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import dalibor.crownsofbetrayal.tools.ImageReader;
@@ -72,13 +68,14 @@ public class Dungeon extends State {
      * Pripravy dungeon aby sa dal pouzivat
      */
     public void setDungeon() {
+        RandomGenerator rG = new RandomGenerator();
         this.numberOfEnemies = this.random.nextInt(1, 6);
         for (int i = 0; i < this.numberOfEnemies; i++) {
             this.enemyButtons.add(new EnemyButton(
                 (int)(this.getWindowWidth() * 0.165 + (325 * i)),
                 (int)(this.getWindowHeight() * 0.26),
                 (int)(275 / this.getScale())));
-            Enemy enemy = this.getRandomEnemy();
+            Enemy enemy = rG.getEnemy();
             enemy.setImageLocation(
                 (int)(this.getWindowWidth() * 0.165 + (325 * i)),
                 (int)(this.getWindowHeight() * 0.26),
@@ -88,23 +85,6 @@ public class Dungeon extends State {
         }
     }
 
-    /**
-     * @return nahodny nepriatel
-     */
-    private Enemy getRandomEnemy() {
-        int num = this.random.nextInt(1, 100);
-        if (1 <= num && num < 20) {
-            return new Ghost();
-        } else if (20 <= num && num < 40) {
-            return new Snowman();
-        } else if (40 <= num && num < 60) {
-            return new Scarecrow();
-        } else if (60 <= num && num < 80) {
-            return new Thief();
-        } else {
-            return new Jellyfish();
-        }
-    }
 
     /**
      * Vykresluje vsetko co sa deje na obrazovke ak je Dungeon state aktivny
@@ -171,6 +151,8 @@ public class Dungeon extends State {
      */
     @Override
     public void update() {
+        this.getPlayer().removeDoneQuests();
+        Enemy killedEnemy = null;
         if (!this.getPlayer().isOnMove()) {
             if (!this.enemies.isEmpty()) {
                 for (int i = 0; i < this.numberOfEnemies; i++) {
@@ -178,12 +160,21 @@ public class Dungeon extends State {
                         this.enemies.get(i).getDamage());
                     this.enemies.get(i).makeSpecialAttack(this.getPlayer());
                     if (this.enemies.get(i).getHealth() <= 0) {
-                        this.enemies.remove(this.enemies.get(i));
+                        killedEnemy = this.enemies.get(i);
+                        this.enemies.remove(killedEnemy);
                         this.enemyButtons.remove(this.enemyButtons.get(i));
                         this.numberOfEnemies--;
                     }
                 }
                 this.getPlayer().setOnMove(true);
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            if (this.getPlayer().getQuest(i) instanceof KillingQuest &&
+                killedEnemy != null) {
+                ((KillingQuest)this.getPlayer().getQuest(i))
+                    .killedEnemy(killedEnemy);
             }
         }
     }

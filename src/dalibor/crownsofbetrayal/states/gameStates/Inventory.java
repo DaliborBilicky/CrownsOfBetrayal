@@ -140,9 +140,12 @@ public class Inventory extends State {
             (int)(this.getGame().getHeight() * 0.82));
     }
 
+    /**
+     * Kontroluje ci hrac nema splneny quest
+     */
     @Override
     public void update() {
-
+        this.getPlayer().removeDoneQuests();
     }
 
     /**

@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 public abstract class Enemy {
     private final BufferedImage imageRepresentation;
     private final int damage;
+    private final String name;
     private int health;
     private boolean takingDamage;
     private int x;
@@ -23,12 +24,18 @@ public abstract class Enemy {
      * @param imageRepresentation obrazok nepriatela
      * @param maxHealth           max zivoty nepriatela
      * @param damage              body utoku nepriatela
+     * @param name                nazov nepriatela
      */
-    public Enemy(BufferedImage imageRepresentation, int maxHealth, int damage) {
+    public Enemy(BufferedImage imageRepresentation, String name, int maxHealth, int damage) {
         this.imageRepresentation = imageRepresentation;
+        this.name = name;
         this.health = maxHealth;
         this.damage = damage;
         this.takingDamage = false;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     /**

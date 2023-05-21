@@ -68,9 +68,12 @@ public class GameMenu extends State {
     }
 
 
+    /**
+     * Kontroluje ci hrac nema splneny quest
+     */
     @Override
     public void update() {
-
+        this.getPlayer().removeDoneQuests();
     }
 
 
@@ -93,6 +96,7 @@ public class GameMenu extends State {
                 this.getGame().getDungeon().fillInventory();
                 if (button.getState().equals(States.PUB)) {
                     this.getGame().getPub().fillShop();
+                    this.getGame().getPub().generateQuests();
                 }
                 this.getGame().getPub().fillPubInventory();
             }

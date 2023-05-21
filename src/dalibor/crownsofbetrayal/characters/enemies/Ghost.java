@@ -12,7 +12,7 @@ public class Ghost extends Enemy {
      * V konstruktore nastavujem napevno hodnoty do predkovho konstruktora
      */
     public Ghost() {
-        super(new ImageReader().getBufferedImage("res/characters/ghost.png"), 200, 2);
+        super(new ImageReader().getBufferedImage("res/characters/ghost.png"), "ghost", 200, 2);
     }
 
 
@@ -28,7 +28,7 @@ public class Ghost extends Enemy {
         int probability = random.nextInt(1, 101);
         if (0 < probability && probability <= 25) {
             int health = this.getHealth();
-            this.setHealth(health + 30);
+            this.setHealth(health + 5);
         }
     }
 }

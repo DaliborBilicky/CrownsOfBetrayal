@@ -9,6 +9,8 @@ import dalibor.crownsofbetrayal.items.weapons.Saw;
 import dalibor.crownsofbetrayal.items.weapons.Sword;
 import dalibor.crownsofbetrayal.items.weapons.Weapon;
 import dalibor.crownsofbetrayal.main.Game;
+import dalibor.crownsofbetrayal.quests.ItemCollectionQuest;
+import dalibor.crownsofbetrayal.quests.Quest;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -32,6 +34,7 @@ public class Player {
     private static final int MAX_HEALTH = 100;
     private final Game game;
     private final ArrayList<Item> inventory;
+    private final Quest[] questBook;
     private int damage;
     private Item shield;
     private Item weapon;
@@ -48,7 +51,7 @@ public class Player {
      */
     public Player(Game game) {
         this.supplies = SUPPLIES_CAPACITY;
-        this.goldCoins = 10;
+        this.goldCoins = 20;
         this.onMove = true;
         this.health = MAX_HEALTH;
         this.shield = new NoItem();
@@ -57,6 +60,40 @@ public class Player {
         this.damage = DAMAGE;
         this.inventory = new ArrayList<>();
         this.inventory.add(new Apple());
+        this.questBook = new Quest[10];
+        this.setQuests();
+    }
+
+    public void setQuests() {
+        for (int i = 0; i < this.questBook.length; i++) {
+            this.questBook[i] = new Quest(this, 0);
+        }
+    }
+
+    public void setNewQuest(Quest quest) {
+        for (int i = 0; i < this.questBook.length; i++) {
+            if (this.questBook[i].getDescription().equals("No quest")) {
+                this.questBook[i] = quest;
+                break;
+            }
+        }
+    }
+
+    public void removeDoneQuests() {
+        for (int i = 0; i < this.questBook.length; i++) {
+            if (this.questBook[i].isDone()) {
+                this.questBook[i].giveReward();
+                this.questBook[i] = new Quest(this, 0);
+            }
+        }
+    }
+
+    public void removeQuest(int index) {
+        this.questBook[index] = new Quest(this, 0);
+    }
+
+    public Quest getQuest(int index) {
+        return this.questBook[index];
     }
 
     /**
@@ -126,6 +163,11 @@ public class Player {
     public void putItemToInventory(Item item) {
         if (this.inventory.size() < INVENTORY_CAPACITY) {
             this.inventory.add(item);
+            for (Quest quest : this.questBook) {
+                if (quest instanceof ItemCollectionQuest) {
+                    ((ItemCollectionQuest)quest).collectedItem();
+                }
+            }
         }
     }
 

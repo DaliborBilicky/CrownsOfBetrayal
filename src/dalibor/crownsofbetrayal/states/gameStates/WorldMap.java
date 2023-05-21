@@ -2,6 +2,7 @@ package dalibor.crownsofbetrayal.states.gameStates;
 
 import dalibor.crownsofbetrayal.graphics.ui.StateButton;
 import dalibor.crownsofbetrayal.main.Game;
+import dalibor.crownsofbetrayal.quests.DungeonVisitingQuest;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import dalibor.crownsofbetrayal.tools.ImageReader;
@@ -78,9 +79,12 @@ public class WorldMap extends State {
             (int)(this.getWindowHeight() * 0.22));
     }
 
+    /**
+     * Kontroluje ci hrac nema splneny quest
+     */
     @Override
     public void update() {
-
+        this.getPlayer().removeDoneQuests();
     }
 
     /**
@@ -102,6 +106,13 @@ public class WorldMap extends State {
                 this.getGame().getDungeon().setDungeon();
                 int tempSupplies = this.getPlayer().getSupplies();
                 this.getPlayer().setSupplies(tempSupplies - 10);
+                for (int i = 0; i < 10; i++) {
+                    if (this.getPlayer()
+                        .getQuest(i) instanceof DungeonVisitingQuest) {
+                        ((DungeonVisitingQuest)this.getPlayer().getQuest(i))
+                            .visitedDungeon();
+                    }
+                }
             }
         }
     }
