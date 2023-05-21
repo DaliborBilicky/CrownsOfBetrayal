@@ -12,7 +12,7 @@ public class CurrentState {
     }
 
     public void setState(States states) {
-        if (states.name().equals(States.EXIT.name())) {
+        if (states.name().equals(States.QUIT.name())) {
             System.exit(0);
         }
         this.states = states;

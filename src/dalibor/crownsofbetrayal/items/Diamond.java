@@ -8,6 +8,7 @@ public class Diamond extends Item implements Sellable {
 
     public Diamond() {
         super(new ImageReader().getBufferedImage("res/items/diamond.png"));
+        this.setPrice();
     }
 
     @Override

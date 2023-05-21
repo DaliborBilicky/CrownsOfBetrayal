@@ -1,7 +1,7 @@
 package dalibor.crownsofbetrayal.states;
 
 public enum States {
-    EXIT,
+    QUIT,
     GAME_MENU,
     INVENTORY,
     MENU,

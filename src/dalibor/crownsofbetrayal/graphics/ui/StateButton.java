@@ -27,13 +27,8 @@ public class StateButton extends Button {
         this.currentState = currentState;
     }
 
-    public void setState(States state) {
-        this.state = state;
-    }
-
     @Override
     public void draw(Graphics2D g2D) {
-        //        super.draw(g2D);
         int width = this.getHeight();
         if (this.isMouseIn()) {
             g2D.drawImage(
@@ -55,5 +50,13 @@ public class StateButton extends Button {
 
     public void applyState() {
         this.currentState.setState(this.state);
+    }
+
+    public States getState() {
+        return this.state;
+    }
+
+    public void setState(States state) {
+        this.state = state;
     }
 }

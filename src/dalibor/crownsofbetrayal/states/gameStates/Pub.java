@@ -10,6 +10,7 @@ import dalibor.crownsofbetrayal.main.Game;
 import dalibor.crownsofbetrayal.states.State;
 import dalibor.crownsofbetrayal.states.States;
 import dalibor.crownsofbetrayal.tools.ImageReader;
+import dalibor.crownsofbetrayal.tools.RandomGenerator;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -76,9 +77,16 @@ public class Pub extends State {
     }
 
     public void fillPubInventory() {
+        ArrayList<Item> tempItems = new ArrayList<>();
+        for (int i = 0; i < this.getPlayer().getInventoryCapacity(); i++) {
+            Item tempItem = this.getPlayer().getItemFromInventory(i);
+            if (tempItem instanceof Sellable) {
+                tempItems.add(tempItem);
+            }
+        }
         for (int i = 0; i < this.pubInventory.length; i++) {
             for (int j = 0; j < this.pubInventory[i].length; j++) {
-                Item tempItem = this.getPlayer().getItemFromInventory(
+                Item tempItem = tempItems.get(
                     (j * this.pubInventory.length) + i);
                 if (tempItem instanceof Sellable) {
                     tempItem.setI(i);
@@ -90,23 +98,26 @@ public class Pub extends State {
         for (int i = 0; i < this.shopInventory.length; i++) {
             for (int j = 0; j < this.shopInventory[i].length; j++) {
                 Item tempItem = new NoItem();
-                if (!this.shop.isEmpty()) {
-                    if ((j * this.shopInventory.length) + i <
-                        this.shop.size()) {
-                        tempItem = this.shop.get(
-                            (j * this.shopInventory.length) + i);
-                    }
-                    if (tempItem instanceof Sellable) {
-                        tempItem.setI(i);
-                        tempItem.setJ(j);
-                        this.shopInventory[i][j] = tempItem;
-                    }
-                } else {
+                if ((j * this.shopInventory.length) + i <
+                    this.shop.size()) {
+                    tempItem = this.shop.get(
+                        (j * this.shopInventory.length) + i);
+                }
+                if (tempItem instanceof Sellable) {
                     tempItem.setI(i);
                     tempItem.setJ(j);
                     this.shopInventory[i][j] = tempItem;
                 }
             }
+        }
+    }
+
+    public void fillShop() {
+        RandomGenerator rG = new RandomGenerator();
+        this.shop.clear();
+        for (int i = 0; i < rG.getNumOfItems(); i++) {
+            Item item = rG.getItemForShop();
+            this.shop.add(item);
         }
     }
 

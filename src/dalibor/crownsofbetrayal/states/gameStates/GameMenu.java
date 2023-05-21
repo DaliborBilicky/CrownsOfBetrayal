@@ -65,8 +65,11 @@ public class GameMenu extends State {
         for (StateButton button : this.buttons) {
             if (button.getButtonBounds().contains(event.getX(), event.getY())) {
                 button.applyState();
-                this.getGame().getPub().fillPubInventory();
                 this.getGame().getInventory().fillInventory();
+                if (button.getState().equals(States.PUB)) {
+                    this.getGame().getPub().fillShop();
+                }
+                this.getGame().getPub().fillPubInventory();
             }
         }
     }

@@ -75,7 +75,8 @@ public class WorldMap extends State {
             this.getCurrentState().setState(States.GAME_MENU);
         }
         for (StateButton button : this.stateButtons) {
-            if (button.getButtonBounds().contains(event.getX(), event.getY())) {
+            if (button.getButtonBounds().contains(event.getX(), event.getY()) &&
+                this.getPlayer().getSupplies() - 10 >= 0) {
                 this.getCurrentState().setState(States.DUNGEON);
                 this.getGame().getDungeon().setDungeon();
                 int tempSupplies = this.getPlayer().getSupplies();
