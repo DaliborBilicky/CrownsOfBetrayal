@@ -126,6 +126,9 @@ public class Pub extends State {
         }
     }
 
+    /**
+     * Vygeneruje nahodne questy ktore prida do pola
+     */
     public void generateQuests() {
         RandomGenerator rG = new RandomGenerator();
         for (int i = 0; i < this.pubQuests.length; i++) {

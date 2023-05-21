@@ -11,7 +11,8 @@ public class Bow extends Weapon {
      * V konstruktore nastavujem napevno hodnoty do predkovho konstruktora
      */
     public Bow() {
-        super(new ImageReader().getBufferedImage("res/items/weapons/bow.png"), 1);
+        super(new ImageReader().getBufferedImage(
+            "res/items/weapons/bow.png"), 1);
     }
 
     /**

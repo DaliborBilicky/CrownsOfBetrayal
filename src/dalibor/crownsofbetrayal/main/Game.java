@@ -36,7 +36,6 @@ public class Game implements Runnable {
      * Reprezentacia sekundy pre lepsiu pracu v kode
      */
     private static final double SECOND_IN_NANOSECOND = 1000000000.0;
-    private static final int SECOND_IN_MILLISECOND = 1000;
     private final CurrentState currentState;
     private final Frame frame;
     private final Menu menu;
@@ -88,15 +87,12 @@ public class Game implements Runnable {
         double timePerUpdate = SECOND_IN_NANOSECOND / UPS;
 
         long previousTime = System.nanoTime();
-        long previousPrintTime = System.currentTimeMillis();
-
 
         double deltaFrame = 0;
         double deltaUpdate = 0;
 
         while (true) {
             long currentTime = System.nanoTime();
-            long currentPrintTime = System.currentTimeMillis();
             long timesDiff = (currentTime - previousTime);
 
             deltaFrame += timesDiff / timePerFrame;
@@ -112,13 +108,6 @@ public class Game implements Runnable {
             if (deltaFrame >= 1) {
                 this.frame.repaintPanel();
                 deltaFrame--;
-            }
-
-
-            if (currentPrintTime - previousPrintTime >=
-                SECOND_IN_MILLISECOND) {
-
-                previousPrintTime = currentPrintTime;
             }
         }
     }

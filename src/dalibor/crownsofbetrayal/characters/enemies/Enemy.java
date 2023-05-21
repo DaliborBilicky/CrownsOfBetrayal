@@ -34,6 +34,7 @@ public abstract class Enemy {
         this.takingDamage = false;
     }
 
+    
     public String getName() {
         return this.name;
     }

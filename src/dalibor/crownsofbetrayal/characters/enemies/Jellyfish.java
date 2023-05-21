@@ -12,7 +12,8 @@ public class Jellyfish extends Enemy {
      * V konstruktore nastavujem napevno hodnoty do predkovho konstruktora
      */
     public Jellyfish() {
-        super(new ImageReader().getBufferedImage("res/characters/jellyfish.png"), "jellyfish", 50, 15);
+        super(new ImageReader().getBufferedImage(
+            "res/characters/jellyfish.png"), "jellyfish", 50, 15);
     }
 
 

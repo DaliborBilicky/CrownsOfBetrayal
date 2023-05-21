@@ -11,7 +11,8 @@ public class Saw extends Weapon {
      * V konstruktore nastavujem napevno hodnoty do predkovho konstruktora
      */
     public Saw() {
-        super(new ImageReader().getBufferedImage("res/items/weapons/saw.png"), 2);
+        super(new ImageReader().getBufferedImage(
+            "res/items/weapons/saw.png"), 2);
     }
 
     /**

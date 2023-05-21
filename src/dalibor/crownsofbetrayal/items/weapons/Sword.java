@@ -11,7 +11,8 @@ public class Sword extends Weapon {
      * V konstruktore nastavujem napevno hodnoty do predkovho konstruktora
      */
     public Sword() {
-        super(new ImageReader().getBufferedImage("res/items/weapons/sword.png"), 4);
+        super(new ImageReader().getBufferedImage(
+            "res/items/weapons/sword.png"), 4);
     }
 
     /**

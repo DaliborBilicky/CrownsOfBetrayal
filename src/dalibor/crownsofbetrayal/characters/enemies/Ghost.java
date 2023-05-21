@@ -12,7 +12,8 @@ public class Ghost extends Enemy {
      * V konstruktore nastavujem napevno hodnoty do predkovho konstruktora
      */
     public Ghost() {
-        super(new ImageReader().getBufferedImage("res/characters/ghost.png"), "ghost", 200, 2);
+        super(new ImageReader().getBufferedImage(
+            "res/characters/ghost.png"), "ghost", 200, 2);
     }
 
 

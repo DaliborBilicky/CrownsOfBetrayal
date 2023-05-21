@@ -14,7 +14,8 @@ public class Knife extends Weapon implements Sellable {
      * A setujem cenu stitu
      */
     public Knife() {
-        super(new ImageReader().getBufferedImage("res/items/weapons/knife.png"), 2);
+        super(new ImageReader().getBufferedImage(
+            "res/items/weapons/knife.png"), 2);
         this.setPrice();
     }
 

@@ -64,12 +64,20 @@ public class Player {
         this.setQuests();
     }
 
+    /**
+     * Nastavi indexy v poli na quest
+     */
     public void setQuests() {
         for (int i = 0; i < this.questBook.length; i++) {
             this.questBook[i] = new Quest();
         }
     }
 
+    /**
+     * Pridava questy do pola
+     *
+     * @param quest quest ktory sa zapise
+     */
     public void setNewQuest(Quest quest) {
         for (int i = 0; i < this.questBook.length; i++) {
             if (this.questBook[i].getDescription().equals("No quest")) {
@@ -79,6 +87,9 @@ public class Player {
         }
     }
 
+    /**
+     * odstrani spravney quest
+     */
     public void removeDoneQuests() {
         for (int i = 0; i < this.questBook.length; i++) {
             if (this.questBook[i].isDone()) {
@@ -95,10 +106,20 @@ public class Player {
         this.goldCoins += numOfCoins;
     }
 
+    /**
+     * Odstrani quest na danom indexe
+     *
+     * @param index odstranovany quest
+     */
     public void removeQuest(int index) {
         this.questBook[index] = new Quest();
     }
 
+
+    /**
+     * @param index questu ktory chceme vratit
+     * @return vybrany quest
+     */
     public Quest getQuest(int index) {
         return this.questBook[index];
     }
@@ -259,10 +280,16 @@ public class Player {
         this.onMove = onMove;
     }
 
+    /**
+     * resetne zdravie
+     */
     public void resetHealth() {
         this.health = MAX_HEALTH;
     }
 
+    /**
+     * resetne body utoku
+     */
     public void resetDamage() {
         this.damage = DAMAGE;
     }
@@ -300,7 +327,6 @@ public class Player {
     public boolean isInventoryEmpty() {
         return this.inventory.isEmpty();
     }
-
 
     /**
      * Hrac bol okradnuty takze sa mu zmaze inventar
