@@ -159,20 +159,20 @@ public class Dungeon extends State {
             event.getY() < 100 / this.getScale()) {
             this.getCurrentState().setState(States.WORLD_MAP);
             this.enemyButtons.clear();
-            this.enemies.clear();
-            if (this.getPlayer().getHealth() <= 0) {
-                this.getPlayer().resetHealth();
-            } else {
+            if (!this.enemies.isEmpty()) {
                 int tempSupplies = this.getPlayer().getSupplies();
                 this.getPlayer().setSupplies(tempSupplies - 10);
+                if (this.getPlayer().getHealth() <= 0) {
+                    this.getPlayer().resetHealth();
+                }
             }
             this.getPlayer().resetDamage();
+            this.enemies.clear();
         }
         if (this.getPlayer().getHealth() > 0 && !this.enemies.isEmpty()) {
             for (int i = 0; i < this.numberOfEnemies; i++) {
                 if (this.enemyButtons.get(i).getButtonBounds()
-                    .contains(event.getX(), event.getY()) &&
-                    !this.enemies.isEmpty()) {
+                    .contains(event.getX(), event.getY())) {
                     if (this.getPlayer().getWeapon() instanceof Bow &&
                         ((Bow)this.getPlayer().getWeapon())
                             .isDealingMultipleHits()) {

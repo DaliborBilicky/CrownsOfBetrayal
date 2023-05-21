@@ -127,29 +127,48 @@ public class Pub extends State {
                 button.draw(g2D);
             }
         }
-
+        g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 60));
+        g2D.setColor(Color.RED);
         for (int i = 0; i < this.pubInventory.length; i++) {
             for (int j = 0; j < this.pubInventory[i].length; j++) {
-                this.pubInventory[i][j].draw(g2D,
+                Item item = this.pubInventory[i][j];
+                item.draw(g2D,
                     (int)(this.getWindowWidth() * 0.48 +
                         (175 / this.getScale() * j)),
                     (int)(this.getWindowHeight() * 0.27 +
                         (175 / this.getScale() * i)),
                     (int)(175 / this.getScale()));
+                if (item instanceof Sellable &&
+                    ((Sellable)item).getPrice() > 0) {
+                    g2D.drawString(String.valueOf(((Sellable)item).getPrice()),
+                        (int)(this.getWindowWidth() * 0.5 +
+                            (175 / this.getScale() * j)),
+                        (int)(this.getWindowHeight() * 0.33 +
+                            (175 / this.getScale() * i)));
+                }
             }
         }
 
         for (int i = 0; i < this.shopInventory.length; i++) {
             for (int j = 0; j < this.shopInventory[i].length; j++) {
-                this.shopInventory[i][j].draw(g2D,
+                Item item = this.shopInventory[i][j];
+                item.draw(g2D,
                     (int)(this.getWindowWidth() * 0.805 +
                         (175 / this.getScale() * j)),
                     (int)(this.getWindowHeight() * 0.27 +
                         (175 / this.getScale() * i)),
                     (int)(175 / this.getScale()));
+                if (item instanceof Sellable &&
+                    ((Sellable)item).getPrice() > 0) {
+                    g2D.drawString(String.valueOf(((Sellable)item).getPrice()),
+                        (int)(this.getWindowWidth() * 0.82 +
+                            (175 / this.getScale() * j)),
+                        (int)(this.getWindowHeight() * 0.33 +
+                            (175 / this.getScale() * i)));
+                }
             }
         }
-        g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 60));
+
         g2D.setColor(Color.WHITE);
         g2D.drawString(
             String.valueOf(this.getPlayer().getGoldCoins()),
