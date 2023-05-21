@@ -1,7 +1,11 @@
 package dalibor.crownsofbetrayal.states.gameStates;
 
 import dalibor.crownsofbetrayal.characters.enemies.Enemy;
+import dalibor.crownsofbetrayal.characters.enemies.Ghost;
+import dalibor.crownsofbetrayal.characters.enemies.Jellyfish;
+import dalibor.crownsofbetrayal.characters.enemies.Scarecrow;
 import dalibor.crownsofbetrayal.characters.enemies.Snowman;
+import dalibor.crownsofbetrayal.characters.enemies.Thief;
 import dalibor.crownsofbetrayal.graphics.ui.EnemyButton;
 import dalibor.crownsofbetrayal.graphics.ui.ItemButton;
 import dalibor.crownsofbetrayal.items.Item;
@@ -25,7 +29,7 @@ public class Dungeon extends State {
     private final ArrayList<EnemyButton> enemyButtons;
     private final ArrayList<Enemy> enemies;
     private final ItemButton[] itemButtons;
-    private final ArrayList<Item> usableItems;
+    private final ArrayList<Item> items;
     private int numberOfEnemies;
 
     public Dungeon(Game game) {
@@ -35,7 +39,7 @@ public class Dungeon extends State {
         this.enemyButtons = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.itemButtons = new ItemButton[6];
-        this.usableItems = new ArrayList<>();
+        this.items = new ArrayList<>();
         this.setItemButtons();
     }
 
@@ -54,12 +58,6 @@ public class Dungeon extends State {
     }
 
     public void setDungeon() {
-        for (int i = 0; i < this.getPlayer().getInventoryCapacity(); i++) {
-            Item tempItem = this.getPlayer().getItemFromInventory(i);
-            if (tempItem instanceof Usable) {
-                this.usableItems.add(tempItem);
-            }
-        }
         this.numberOfEnemies = this.random.nextInt(1, 6);
         for (int i = 0; i < this.numberOfEnemies; i++) {
             this.enemyButtons.add(new EnemyButton(
@@ -78,18 +76,17 @@ public class Dungeon extends State {
 
     private Enemy getRandomEnemy() {
         int num = this.random.nextInt(1, 100);
-        //        if (1 <= num && num < 20) {
-        //            return new Ghost();
-        //        } else if (20 <= num && num < 40) {
-        //            return new Snowman();
-        //        } else if (40 <= num && num < 60) {
-        //            return new Scarecrow();
-        //        } else if (60 <= num && num < 80) {
-        //            return new Thief();
-        //        } else {
-        //            return new Jellyfish();
-        //        }
-        return new Snowman();
+        if (1 <= num && num < 20) {
+            return new Ghost();
+        } else if (20 <= num && num < 40) {
+            return new Snowman();
+        } else if (40 <= num && num < 60) {
+            return new Scarecrow();
+        } else if (60 <= num && num < 80) {
+            return new Thief();
+        } else {
+            return new Jellyfish();
+        }
     }
 
     @Override
@@ -105,26 +102,30 @@ public class Dungeon extends State {
         for (ItemButton itemButton : this.itemButtons) {
             itemButton.draw(g2D);
         }
-
+        int index = 0;
         for (int i = 0; i < this.itemButtons.length; i++) {
-            Item item = this.usableItems.get(i);
+            Item item = this.items.get(i);
             if (item instanceof Usable && !(item instanceof NoItem)) {
                 item.draw(g2D,
                     (int)(this.getWindowWidth() * 0.14 +
-                        ((275 / this.getScale()) * i)),
+                        ((275 / this.getScale()) * index)),
                     (int)(this.getWindowHeight() * 0.45 +
                         ((275 / this.getScale()))),
                     (int)(275 / this.getScale()));
+                index++;
             }
         }
-        if (!this.enemies.isEmpty()) {
+
+        if (!this.enemies.isEmpty() && this.numberOfEnemies > 0) {
             for (int i = 0; i < this.numberOfEnemies; i++) {
                 this.enemies.get(i).drawEnemy(g2D);
                 this.enemyButtons.get(i).draw(g2D);
             }
-        } else {
+        }
+        if (this.enemies.isEmpty() && this.getPlayer().getHealth() > 0) {
             g2D.setColor(new Color(0, 0, 0, 150));
-            g2D.fillRect(0, 0, this.getGame().getWidth(), this.getGame().getHeight());
+            g2D.fillRect(0, 0, this.getGame().getWidth(),
+                this.getGame().getHeight());
             g2D.setFont(new Font("Viner Hand ITC", Font.BOLD, 280));
             g2D.setColor(Color.BLACK);
             g2D.drawString(
@@ -150,16 +151,14 @@ public class Dungeon extends State {
                     this.getPlayer().takeDamage(
                         this.enemies.get(i).dealDamage());
                     this.enemies.get(i).makeSpecialAttack(this.getPlayer());
-                    System.out.println(this.getPlayer().isOnMove());
                     if (this.enemies.get(i).getHealth() <= 0) {
                         this.enemies.remove(this.enemies.get(i));
                         this.enemyButtons.remove(this.enemyButtons.get(i));
                         this.numberOfEnemies--;
                     }
                 }
+                this.getPlayer().setOnMove(true);
             }
-        } else {
-            this.getPlayer().setOnMove(true);
         }
     }
 
@@ -182,10 +181,10 @@ public class Dungeon extends State {
                 this.putWinningInInventory();
             }
             this.getPlayer().resetDamage();
+            this.getPlayer().setStunned(false);
             this.enemies.clear();
         }
-        if (this.getPlayer().getHealth() > 0 && !this.enemies.isEmpty() &&
-            !this.getPlayer().isStunned()) {
+        if (this.getPlayer().getHealth() > 0 && !this.enemies.isEmpty()) {
             for (int i = 0; i < this.numberOfEnemies; i++) {
                 if (this.enemyButtons.get(i).getButtonBounds()
                     .contains(event.getX(), event.getY())) {
@@ -204,15 +203,19 @@ public class Dungeon extends State {
                     break;
                 }
             }
-            for (int i = 0; i < this.itemButtons.length; i++) {
-                if (this.itemButtons[i].getButtonBounds()
-                    .contains(event.getX(), event.getY()) &&
-                    !this.getPlayer().isInventoryEmpty()) {
-                    Item selectedItem =
-                        this.getPlayer().getItemFromInventory(i);
-                    if (selectedItem instanceof Usable) {
-                        ((Usable)selectedItem).use(this.getPlayer());
-                        this.getPlayer().removeItemFromInventory(i);
+            if (!this.getPlayer().isStunned()) {
+                for (int i = 0; i < this.itemButtons.length; i++) {
+                    if (this.itemButtons[i].getButtonBounds()
+                        .contains(event.getX(), event.getY()) &&
+                        !this.getPlayer().isInventoryEmpty()) {
+                        Item selectedItem = this.items.get(i);
+                        if (selectedItem instanceof Usable) {
+                            ((Usable)selectedItem).use(this.getPlayer());
+                            this.getPlayer().removeItemFromInventory(selectedItem);
+                            this.items.remove(selectedItem);
+                            this.fillInventory();
+                            this.getPlayer().setOnMove(false);
+                        }
                     }
                 }
             }
@@ -247,4 +250,14 @@ public class Dungeon extends State {
             this.getPlayer().putItemToInventory(rG.getItem());
         }
     }
+
+    public void fillInventory() {
+        for (int i = 0; i < this.getPlayer().getInventoryCapacity(); i++) {
+            Item selectedItem = this.getPlayer().getItemFromInventory(i);
+            if (selectedItem instanceof Usable) {
+                this.items.add(selectedItem);
+            }
+        }
+    }
+
 }

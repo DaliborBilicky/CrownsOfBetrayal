@@ -8,7 +8,7 @@ public class Snowman extends Enemy {
     public Snowman() {
         super(new ImageReader()
                 .getBufferedImage("res/characters/snowman.png"),
-            50, 15);
+            50, 7);
     }
 
 

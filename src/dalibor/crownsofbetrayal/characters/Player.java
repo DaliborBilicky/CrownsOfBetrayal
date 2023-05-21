@@ -3,6 +3,10 @@ package dalibor.crownsofbetrayal.characters;
 import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.NoItem;
 import dalibor.crownsofbetrayal.items.shields.StrongShield;
+import dalibor.crownsofbetrayal.items.usableItems.Adrenaline;
+import dalibor.crownsofbetrayal.items.usableItems.Apple;
+import dalibor.crownsofbetrayal.items.usableItems.Beer;
+import dalibor.crownsofbetrayal.items.usableItems.Heal;
 import dalibor.crownsofbetrayal.items.weapons.Saw;
 import dalibor.crownsofbetrayal.items.weapons.Sword;
 import dalibor.crownsofbetrayal.items.weapons.Weapon;
@@ -15,7 +19,7 @@ import java.util.ArrayList;
 public class Player {
     private static final int INVENTORY_CAPACITY = 24;
     private static final int SUPPLIES_CAPACITY = 50;
-    private static final int DAMAGE = Integer.MAX_VALUE;
+    private static final int DAMAGE = 10;
     private static final int MAX_HEALTH = 100;
     private final Game game;
     private final ArrayList<Item> inventory;
@@ -38,7 +42,11 @@ public class Player {
         this.game = game;
         this.damage = DAMAGE;
         this.inventory = new ArrayList<>();
-        this.inventory.add(new Saw());
+        this.inventory.add(new Sword());
+        this.inventory.add(new Adrenaline());
+        this.inventory.add(new Apple());
+        this.inventory.add(new Beer());
+        this.inventory.add(new Heal());
     }
 
     public void draw(Graphics2D g2D) {
@@ -85,10 +93,9 @@ public class Player {
         }
     }
 
-    public void removeItemFromInventory(int i, int j) {
+    public void removeItemFromInventory(Item item) {
         if (!this.inventory.isEmpty()) {
-            this.inventory.removeIf(
-                item -> item.getI() == i && item.getJ() == j);
+            this.inventory.remove(item);
         }
     }
 

@@ -144,12 +144,12 @@ public class Inventory extends State {
                         if (selectedItem instanceof Weapon &&
                             !(this.getPlayer().getWeapon() instanceof Weapon)) {
                             this.getPlayer().setWeapon(selectedItem);
-                            this.getPlayer().removeItemFromInventory(i, j);
+                            this.getPlayer().removeItemFromInventory(selectedItem);
                         }
                         if (selectedItem instanceof Shield &&
                             !(this.getPlayer().getShield() instanceof Shield)) {
                             this.getPlayer().setShield(selectedItem);
-                            this.getPlayer().removeItemFromInventory(i, j);
+                            this.getPlayer().removeItemFromInventory(selectedItem);
                         }
                         this.fillInventory();
                     }

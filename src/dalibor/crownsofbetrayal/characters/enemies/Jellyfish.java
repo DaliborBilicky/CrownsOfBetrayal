@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Jellyfish extends Enemy {
     public Jellyfish() {
-        super(new ImageReader().getBufferedImage("res/characters/jellyfish.png"), 50, 30);
+        super(new ImageReader().getBufferedImage("res/characters/jellyfish.png"), 50, 15);
     }
 
 

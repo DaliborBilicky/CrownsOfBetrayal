@@ -9,7 +9,7 @@ public class Scarecrow extends Enemy {
     public Scarecrow() {
         super(new ImageReader()
                 .getBufferedImage("res/characters/scarecrow.png"),
-            200, 20);
+            200, 10);
     }
 
 

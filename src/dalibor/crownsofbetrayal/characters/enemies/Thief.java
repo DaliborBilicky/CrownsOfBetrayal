@@ -8,7 +8,7 @@ public class Thief extends Enemy {
     public Thief() {
         super(new ImageReader()
                 .getBufferedImage("res/characters/thief.png"),
-            100, 10);
+            100, 5);
     }
 
 
@@ -16,7 +16,7 @@ public class Thief extends Enemy {
     public void makeSpecialAttack(Player player) {
         Random random = new Random();
         int probability = random.nextInt(1, 101);
-        if (0 < probability && probability <= 5) {
+        if (0 < probability && probability <= 10) {
             player.robbed();
         }
     }

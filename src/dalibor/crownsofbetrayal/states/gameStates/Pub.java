@@ -18,7 +18,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Pub extends State {
-    private static final int SHOP_CAPACITY = 8;
     private final Button[] buttons;
     private final ItemButton[][] inventoryButtons;
     private final ItemButton[][] shopButtons;
@@ -171,7 +170,8 @@ public class Pub extends State {
                     (int)(175 / this.getScale()));
                 if (item instanceof Sellable &&
                     ((Sellable)item).getPrice() > 0) {
-                    g2D.drawString(String.valueOf(((Sellable)item).getPrice()),
+                    g2D.drawString(String.valueOf(
+                            ((Sellable)item).getPrice() * 2),
                         (int)(this.getWindowWidth() * 0.82 +
                             (175 / this.getScale() * j)),
                         (int)(this.getWindowHeight() * 0.33 +
@@ -209,7 +209,7 @@ public class Pub extends State {
                     .contains(event.getX(), event.getY())) {
                     Item selectedItem = this.pubInventory[i][j];
                     if (selectedItem instanceof Sellable) {
-                        this.getPlayer().removeItemFromInventory(i, j);
+                        this.getPlayer().removeItemFromInventory(selectedItem);
                         this.getPlayer().gainGold(
                             ((Sellable)selectedItem).getPrice());
                         this.shop.add(selectedItem);
