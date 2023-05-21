@@ -24,6 +24,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Specialny druh statu kde sa odohrava bytka hrac vs nepriatel
+ */
 public class Dungeon extends State {
     private final Random random;
     private final ArrayList<EnemyButton> enemyButtons;
@@ -32,6 +35,11 @@ public class Dungeon extends State {
     private final ArrayList<Item> items;
     private int numberOfEnemies;
 
+    /**
+     * Natvrdo nastavene pozadie
+     *
+     * @param game hlavna trieda
+     */
     public Dungeon(Game game) {
         super(game, new ImageReader()
             .getBufferedImage("res/bg/dungeon.png"));
@@ -44,6 +52,9 @@ public class Dungeon extends State {
     }
 
 
+    /**
+     * Nastavi tlacidlam spravne hodnoty
+     */
     private void setItemButtons() {
         for (int i = 0; i < this.itemButtons.length; i++) {
             this.itemButtons[i] = new ItemButton(
@@ -57,6 +68,9 @@ public class Dungeon extends State {
         }
     }
 
+    /**
+     * Pripravy dungeon aby sa dal pouzivat
+     */
     public void setDungeon() {
         this.numberOfEnemies = this.random.nextInt(1, 6);
         for (int i = 0; i < this.numberOfEnemies; i++) {
@@ -74,6 +88,9 @@ public class Dungeon extends State {
         }
     }
 
+    /**
+     * @return nahodny nepriatel
+     */
     private Enemy getRandomEnemy() {
         int num = this.random.nextInt(1, 100);
         if (1 <= num && num < 20) {
@@ -89,6 +106,11 @@ public class Dungeon extends State {
         }
     }
 
+    /**
+     * Vykresluje vsetko co sa deje na obrazovke ak je Dungeon state aktivny
+     *
+     * @param g2D java trieda na vykreslovanie
+     */
     @Override
     public void draw(Graphics2D g2D) {
         super.draw(g2D);
@@ -143,13 +165,17 @@ public class Dungeon extends State {
 
     }
 
+    /**
+     * Kontroluje ci je hrac na tahu, ci mozu nepriatelia zutocit a ci nepriatel
+     * nezomrel
+     */
     @Override
     public void update() {
         if (!this.getPlayer().isOnMove()) {
             if (!this.enemies.isEmpty()) {
                 for (int i = 0; i < this.numberOfEnemies; i++) {
                     this.getPlayer().takeDamage(
-                        this.enemies.get(i).dealDamage());
+                        this.enemies.get(i).getDamage());
                     this.enemies.get(i).makeSpecialAttack(this.getPlayer());
                     if (this.enemies.get(i).getHealth() <= 0) {
                         this.enemies.remove(this.enemies.get(i));
@@ -162,6 +188,12 @@ public class Dungeon extends State {
         }
     }
 
+    /**
+     * Kontroluje ci sa dane tlacidlo pouzilo a ak hej tak vykona funkciu
+     * tlacidla
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseClicked(MouseEvent event) {
         if (event.getX() < 100 / this.getScale() &&
@@ -222,6 +254,11 @@ public class Dungeon extends State {
         }
     }
 
+    /**
+     * Kontroluje ci kurzor je nad tlacidlom ak hej tak sa nastavy tlcidlo
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseMoved(MouseEvent event) {
         if (this.getPlayer().getHealth() > 0 && !this.enemies.isEmpty()) {
@@ -244,6 +281,9 @@ public class Dungeon extends State {
         }
     }
 
+    /**
+     * Prida hracovy nahodne itemy ak vyhra proti nepriatelom
+     */
     private void putWinningInInventory() {
         RandomGenerator rG = new RandomGenerator();
         for (int i = 0; i < rG.getNumOfItems(); i++) {
@@ -251,6 +291,9 @@ public class Dungeon extends State {
         }
     }
 
+    /**
+     * Naplnenie dungeon inventara
+     */
     public void fillInventory() {
         for (int i = 0; i < this.getPlayer().getInventoryCapacity(); i++) {
             Item selectedItem = this.getPlayer().getItemFromInventory(i);

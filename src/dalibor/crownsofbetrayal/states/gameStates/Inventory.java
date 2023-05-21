@@ -16,11 +16,20 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
+
+/**
+ * Specialny druh statu kde si hrac vie pozriet ake itemy ma a ake ma nasadene
+ */
 public class Inventory extends State {
     private final Item[][] inventory;
     private final Button[][] inventoryButtons;
     private final Button[] gearButtons;
 
+    /**
+     * Natvrdo nastavene pozadie
+     *
+     * @param game hlavna trieda
+     */
     public Inventory(Game game) {
         super(game, new ImageReader().getBufferedImage("res/bg/inventory.png"));
         this.inventory = new Item[4][6];
@@ -30,6 +39,9 @@ public class Inventory extends State {
         this.fillInventory();
     }
 
+    /**
+     * Nastavi tlacidlam spravne hodnoty
+     */
     private void setButtons() {
         for (int i = 0; i < this.inventoryButtons.length; i++) {
             for (int j = 0; j < this.inventoryButtons[i].length; j++) {
@@ -52,19 +64,25 @@ public class Inventory extends State {
         }
     }
 
+    /**
+     * Naplnenie inventara
+     */
     public void fillInventory() {
         for (int i = 0; i < this.inventory.length; i++) {
             for (int j = 0; j < this.inventory[i].length; j++) {
                 Item tempItem = this.getPlayer().getItemFromInventory(
                     (j * this.inventory.length) + i);
-                tempItem.setI(i);
-                tempItem.setJ(j);
                 this.inventory[i][j] = tempItem;
             }
 
         }
     }
 
+    /**
+     * Vykresluje vsetko co sa deje na obrazovke ak je Dungeon state aktivny
+     *
+     * @param g2D java trieda na vykreslovanie
+     */
     @Override
     public void draw(Graphics2D g2D) {
         super.draw(g2D);
@@ -127,7 +145,12 @@ public class Inventory extends State {
 
     }
 
-
+    /**
+     * Kontroluje ci sa dane tlacidlo pouzilo a ak hej tak vykona funkciu
+     * tlacidla
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseClicked(MouseEvent event) {
         if (event.getX() < 100 / this.getScale() &&
@@ -173,6 +196,11 @@ public class Inventory extends State {
         }
     }
 
+    /**
+     * Kontroluje ci kurzor je nad tlacidlom ak hej tak sa nastavy tlcidlo
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseMoved(MouseEvent event) {
         for (Button[] buttonsList : this.inventoryButtons) {

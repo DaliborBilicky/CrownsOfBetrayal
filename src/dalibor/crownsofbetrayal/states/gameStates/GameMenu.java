@@ -9,15 +9,27 @@ import dalibor.crownsofbetrayal.tools.ImageReader;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
+
+/**
+ * Specialny druh statu kde si hrac vyberie do akej casti hry chce ist
+ */
 public class GameMenu extends State {
     private final StateButton[] buttons;
 
+    /**
+     * Natvrdo nastavene pozadie
+     *
+     * @param game hlavna trieda
+     */
     public GameMenu(Game game) {
         super(game, new ImageReader().getBufferedImage("res/bg/game_menu.png"));
         this.buttons = new StateButton[4];
         this.setButtons();
     }
 
+    /**
+     * Nastavi tlacidlam spravne hodnoty
+     */
     private void setButtons() {
         for (int i = 0; i < this.buttons.length / 2; i++) {
             this.buttons[i] = new StateButton(
@@ -42,6 +54,11 @@ public class GameMenu extends State {
         this.buttons[3].setState(States.WORLD_MAP);
     }
 
+    /**
+     * Vykresluje vsetko co sa deje na obrazovke ak je Dungeon state aktivny
+     *
+     * @param g2D java trieda na vykreslovanie
+     */
     @Override
     public void draw(Graphics2D g2D) {
         super.draw(g2D);
@@ -50,12 +67,19 @@ public class GameMenu extends State {
         }
     }
 
+
     @Override
     public void update() {
 
     }
 
 
+    /**
+     * Kontroluje ci sa dane tlacidlo pouzilo a ak hej tak vykona funkciu
+     * tlacidla
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseClicked(MouseEvent event) {
         if (event.getX() < 100 / this.getScale() &&
@@ -75,6 +99,11 @@ public class GameMenu extends State {
         }
     }
 
+    /**
+     * Kontroluje ci kurzor je nad tlacidlom ak hej tak sa nastavy tlcidlo
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseMoved(MouseEvent event) {
         for (Button button : this.buttons) {

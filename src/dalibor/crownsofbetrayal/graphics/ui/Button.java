@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class Button {
+/**
+ * Abstractna trieda od ktorej dedia specialne typy tlacidiel
+ */
+public abstract class Button {
     private final Rectangle buttonBounds;
     private final int posX;
     private final int posY;
@@ -13,6 +16,12 @@ public class Button {
     private final int height;
     private boolean mouseIn;
 
+    /**
+     * @param posX   pozicia x
+     * @param posY   pozicia y
+     * @param width  sirka tlacidla
+     * @param height vyska tlacidla
+     */
     public Button(int posX, int posY, int width, int height) {
         this.width = width;
         this.height = height;
@@ -23,9 +32,15 @@ public class Button {
 
     }
 
+    /**
+     * Vykresli na poziciach z danymi rozmermy stvorec ak je mys v tlacidle
+     *
+     * @param g2D java trieda na kreslenie
+     */
     public void draw(Graphics2D g2D) {
         if (this.mouseIn) {
             g2D.setColor(Color.WHITE);
+            // hrupka ciary stvorca
             g2D.setStroke(new BasicStroke(5));
             g2D.drawRect(this.posX, this.posY, this.width, this.height);
         }

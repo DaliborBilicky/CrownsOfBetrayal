@@ -14,17 +14,29 @@ import dalibor.crownsofbetrayal.items.weapons.Saw;
 import dalibor.crownsofbetrayal.items.weapons.Sword;
 import java.util.Random;
 
+/**
+ * Vyhradena trieda pre lepsiu manipulaciu na generovanie nahodnych itemov
+ */
 public class RandomGenerator {
     private final Random random;
 
+    /**
+     * Incilizacia triedy Random
+     */
     public RandomGenerator() {
         this.random = new Random();
     }
 
+    /**
+     * @return nahdny pocet itemov
+     */
     public int getNumOfItems() {
         return this.random.nextInt(1, 4);
     }
 
+    /**
+     * @return nahodny item
+     */
     public Item getItem() {
         int probability = this.random.nextInt(1, 155);
         if (0 <= probability && probability < 100) {
@@ -40,6 +52,9 @@ public class RandomGenerator {
         }
     }
 
+    /**
+     * @return nahodny Sellable item
+     */
     public Item getItemForShop() {
         int probability = this.random.nextInt(1, 101);
         if (0 <= probability && probability < 14) {

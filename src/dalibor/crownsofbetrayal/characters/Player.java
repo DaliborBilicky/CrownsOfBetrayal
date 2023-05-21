@@ -2,11 +2,9 @@ package dalibor.crownsofbetrayal.characters;
 
 import dalibor.crownsofbetrayal.items.Item;
 import dalibor.crownsofbetrayal.items.NoItem;
+import dalibor.crownsofbetrayal.items.shields.Shield;
 import dalibor.crownsofbetrayal.items.shields.StrongShield;
-import dalibor.crownsofbetrayal.items.usableItems.Adrenaline;
 import dalibor.crownsofbetrayal.items.usableItems.Apple;
-import dalibor.crownsofbetrayal.items.usableItems.Beer;
-import dalibor.crownsofbetrayal.items.usableItems.Heal;
 import dalibor.crownsofbetrayal.items.weapons.Saw;
 import dalibor.crownsofbetrayal.items.weapons.Sword;
 import dalibor.crownsofbetrayal.items.weapons.Weapon;
@@ -16,7 +14,18 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+
+/**
+ * Trieda hrac obsahuje invnetar a hodnoty ako utok, zivoty, atd.
+ */
 public class Player {
+    /**
+     * Konstanty
+     * 1. kapacita inventara aby nebol nekonecne velky
+     * 2. kapacita zasob aby neboli nekonecne velke
+     * 3. velkost zakladneho utoku
+     * 4. velkost zakladneho zivota
+     */
     private static final int INVENTORY_CAPACITY = 24;
     private static final int SUPPLIES_CAPACITY = 50;
     private static final int DAMAGE = 10;
@@ -32,6 +41,11 @@ public class Player {
     private int goldCoins;
     private boolean stunned;
 
+    /**
+     * V konstruktore prebieha zakladna inicializacia
+     *
+     * @param game hlavna trieda hra aby som vedel pracovat s ostatnymi obejektami
+     */
     public Player(Game game) {
         this.supplies = SUPPLIES_CAPACITY;
         this.goldCoins = 10;
@@ -42,13 +56,14 @@ public class Player {
         this.game = game;
         this.damage = DAMAGE;
         this.inventory = new ArrayList<>();
-        this.inventory.add(new Sword());
-        this.inventory.add(new Adrenaline());
         this.inventory.add(new Apple());
-        this.inventory.add(new Beer());
-        this.inventory.add(new Heal());
     }
 
+    /**
+     * Metoda vykresli game over screen ak hrac zomrie (ma zaporne zivoty)
+     *
+     * @param g2D java trieda na kreslenie
+     */
     public void draw(Graphics2D g2D) {
         if (this.health <= 0) {
             g2D.setColor(new Color(0, 0, 0, 150));
@@ -72,14 +87,30 @@ public class Player {
         return this.supplies;
     }
 
+    /**
+     * metoda zabezpecuje aby sa dalo vzdy zasoby nastavit na plnu hodnotu
+     * aj ked by sucet nevychadzal
+     *
+     * @param supplies nastavovane zasoby
+     */
     public void setSupplies(int supplies) {
         this.supplies = Math.min(supplies, SUPPLIES_CAPACITY);
     }
 
+    /**
+     * @return ci su zasoby plne
+     */
     public boolean isSuppliesFull() {
         return this.supplies == SUPPLIES_CAPACITY;
     }
 
+    /**
+     * V pripade ze index nesplni podmienku vrati sa prazdny item aby nebol
+     * problem s null
+     *
+     * @param index pozicia itemu v inventary
+     * @return item z inventara
+     */
     public Item getItemFromInventory(int index) {
         if (!this.inventory.isEmpty() && index < this.inventory.size()) {
             return this.inventory.get(index);
@@ -87,12 +118,22 @@ public class Player {
         return new NoItem();
     }
 
+    /**
+     * Metoda zapezpecuje aj aby sa neprekrocila kapacita
+     *
+     * @param item ukladany item do inventara
+     */
     public void putItemToInventory(Item item) {
         if (this.inventory.size() < INVENTORY_CAPACITY) {
             this.inventory.add(item);
         }
     }
 
+    /**
+     * Ak nie je inventar prazdny vyhodi sa predmet z neho
+     *
+     * @param item vyhadzovany item z inventara
+     */
     public void removeItemFromInventory(Item item) {
         if (!this.inventory.isEmpty()) {
             this.inventory.remove(item);
@@ -103,14 +144,6 @@ public class Player {
         return INVENTORY_CAPACITY;
     }
 
-
-    public int getSuppliesCapacity() {
-        return SUPPLIES_CAPACITY;
-    }
-
-    public boolean isInventoryFull() {
-        return this.inventory.size() == INVENTORY_CAPACITY;
-    }
 
     public int getHealth() {
         return this.health;
@@ -128,6 +161,12 @@ public class Player {
         this.damage = damage;
     }
 
+    /**
+     * Kontroluje sa ci je zbran urciteho typu ak hej vykona sa
+     * specialna metoda zbrane
+     *
+     * @return body utoku po uprave podla toho aku zbran ma hrac nasadenu
+     */
     public int dealDamage() {
         if (this.weapon instanceof Sword &&
             ((Sword)this.weapon).isKillingOnOneHit()) {
@@ -144,11 +183,19 @@ public class Player {
         return this.damage;
     }
 
+    /**
+     * Ak ma hrac nasadeny lepsi stit tak sa vykona jeho metoda
+     *
+     * @param takenDamage body utoku ktore dostane hrac
+     */
     public void takeDamage(int takenDamage) {
         if (this.health >= 0) {
-            if (this.shield instanceof StrongShield) {
-                if (!((StrongShield)this.shield).isTakingAllDamage()) {
-                    this.health -= takenDamage;
+            if (this.shield instanceof Shield) {
+                if (this.shield instanceof StrongShield) {
+                    if (!((StrongShield)this.shield).isTakingAllDamage()) {
+                        this.health -= takenDamage /
+                            ((Shield)this.shield).getProtection();
+                    }
                 }
             } else {
                 this.health -= takenDamage;
@@ -188,10 +235,17 @@ public class Player {
         this.weapon = weapon;
     }
 
+    /**
+     * @param numOfCoins pocet minci ktore sa pripocitaju
+     */
     public void gainGold(int numOfCoins) {
         this.goldCoins += numOfCoins;
     }
 
+
+    /**
+     * @param numOfCoins pocet minci ktore sa odcitaju
+     */
     public void looseGold(int numOfCoins) {
         this.goldCoins -= numOfCoins;
     }
@@ -200,14 +254,17 @@ public class Player {
         return this.goldCoins;
     }
 
+    /**
+     * @return ci je inventar prazdny
+     */
     public boolean isInventoryEmpty() {
         return this.inventory.isEmpty();
     }
 
-    public void removeItemFromInventory(int index) {
-        this.inventory.remove(index);
-    }
 
+    /**
+     * Hrac bol okradnuty takze sa mu zmaze inventar
+     */
     public void robbed() {
         this.inventory.clear();
     }

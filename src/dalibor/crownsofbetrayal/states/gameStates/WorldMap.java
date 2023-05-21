@@ -10,9 +10,17 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
+/**
+ * Specialny druh statu kde si hrac vybere dungeon
+ */
 public class WorldMap extends State {
     private final StateButton[] stateButtons;
 
+    /**
+     * Natvrdo nastavene pozadie
+     *
+     * @param game hlavna trieda
+     */
     public WorldMap(Game game) {
         super(game,
             new ImageReader().getBufferedImage("res/bg/world_map.png"));
@@ -20,6 +28,9 @@ public class WorldMap extends State {
         this.setButtons();
     }
 
+    /**
+     * Nastavi tlacidlam spravne hodnoty
+     */
     private void setButtons() {
         this.stateButtons[0] = new StateButton(
             (int)(this.getWindowWidth() * 0.12),
@@ -48,6 +59,11 @@ public class WorldMap extends State {
             (int)(50 / this.getScale()));
     }
 
+    /**
+     * Vykresluje vsetko co sa deje na obrazovke ak je Dungeon state aktivny
+     *
+     * @param g2D java trieda na vykreslovanie
+     */
     @Override
     public void draw(Graphics2D g2D) {
         super.draw(g2D);
@@ -67,7 +83,12 @@ public class WorldMap extends State {
 
     }
 
-
+    /**
+     * Kontroluje ci sa dane tlacidlo pouzilo a ak hej tak vykona funkciu
+     * tlacidla
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseClicked(MouseEvent event) {
         if (event.getX() < 100 / this.getScale() &&
@@ -85,6 +106,11 @@ public class WorldMap extends State {
         }
     }
 
+    /**
+     * Kontroluje ci kurzor je nad tlacidlom ak hej tak sa nastavy tlcidlo
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseMoved(MouseEvent event) {
         for (StateButton button : this.stateButtons) {

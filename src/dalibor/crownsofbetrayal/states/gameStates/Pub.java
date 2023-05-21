@@ -17,6 +17,11 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+
+/**
+ * Specialny druh statu kde si vie hrac predat a nakupit itemy, dokupit zasoby a
+ * vybrat questy
+ */
 public class Pub extends State {
     private final Button[] buttons;
     private final ItemButton[][] inventoryButtons;
@@ -25,6 +30,11 @@ public class Pub extends State {
     private final ArrayList<Item> shop;
     private final Item[][] shopInventory;
 
+    /**
+     * Natvrdo nastavene pozadie
+     *
+     * @param game hlavna trieda
+     */
     public Pub(Game game) {
         super(game, new ImageReader().getBufferedImage("res/bg/pub.png"));
         this.buttons = new Button[4];
@@ -37,6 +47,9 @@ public class Pub extends State {
         this.fillPubInventory();
     }
 
+    /**
+     * Nastavi tlacidlam spravne hodnoty
+     */
     private void setButtons() {
         for (int i = 0; i < this.inventoryButtons.length; i++) {
             for (int j = 0; j < this.inventoryButtons[i].length; j++) {
@@ -75,6 +88,9 @@ public class Pub extends State {
             (int)(150 / this.getScale()));
     }
 
+    /**
+     * Naplnenie inventara
+     */
     public void fillPubInventory() {
         ArrayList<Item> tempItems = new ArrayList<>();
         for (int i = 0; i < this.getPlayer().getInventoryCapacity(); i++) {
@@ -88,8 +104,6 @@ public class Pub extends State {
                 Item tempItem = tempItems.get(
                     (j * this.pubInventory.length) + i);
                 if (tempItem instanceof Sellable) {
-                    tempItem.setI(i);
-                    tempItem.setJ(j);
                     this.pubInventory[i][j] = tempItem;
                 }
             }
@@ -103,14 +117,15 @@ public class Pub extends State {
                         (j * this.shopInventory.length) + i);
                 }
                 if (tempItem instanceof Sellable) {
-                    tempItem.setI(i);
-                    tempItem.setJ(j);
                     this.shopInventory[i][j] = tempItem;
                 }
             }
         }
     }
 
+    /**
+     * Naplnenie obchodu
+     */
     public void fillShop() {
         RandomGenerator rG = new RandomGenerator();
         this.shop.clear();
@@ -120,6 +135,11 @@ public class Pub extends State {
         }
     }
 
+    /**
+     * Vykresluje vsetko co sa deje na obrazovke ak je Dungeon state aktivny
+     *
+     * @param g2D java trieda na vykreslovanie
+     */
     @Override
     public void draw(Graphics2D g2D) {
         super.draw(g2D);
@@ -196,6 +216,12 @@ public class Pub extends State {
 
     }
 
+    /**
+     * Kontroluje ci sa dane tlacidlo pouzilo a ak hej tak vykona funkciu
+     * tlacidla
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseClicked(MouseEvent event) {
         if (event.getX() < 100 / this.getScale() &&
@@ -253,6 +279,11 @@ public class Pub extends State {
         }
     }
 
+    /**
+     * Kontroluje ci kurzor je nad tlacidlom ak hej tak sa nastavy tlcidlo
+     *
+     * @param event event z mysky
+     */
     @Override
     public void mouseMoved(MouseEvent event) {
         for (Button button : this.buttons) {

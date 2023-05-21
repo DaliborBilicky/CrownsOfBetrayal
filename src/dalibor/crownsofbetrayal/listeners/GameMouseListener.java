@@ -5,13 +5,25 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+
+/**
+ * Trieda pre lepsiu pracu s MouseListenermy
+ */
 public class GameMouseListener implements MouseListener, MouseMotionListener {
     private final Panel panel;
 
+    /**
+     * @param panel panel v ktorom kontrolujem ci mouse listener zareagoval
+     */
     public GameMouseListener(Panel panel) {
         this.panel = panel;
     }
 
+    /**
+     * Switch kde sa podla aktivneho statu vykona ina metod
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         switch (this.panel.getGame().getCurrentState().getState()) {
@@ -30,7 +42,7 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+
     }
 
     @Override
@@ -54,6 +66,11 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
 
     }
 
+    /**
+     * Switch kde sa podla aktivneho statu vykona ina metod
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
         switch (this.panel.getGame().getCurrentState().getState()) {

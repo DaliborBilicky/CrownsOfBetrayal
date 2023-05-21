@@ -6,6 +6,10 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+
+/**
+ * Trieda sluzi ako predok pre specificky typ nepriatela.
+ */
 public abstract class Enemy {
     private final BufferedImage imageRepresentation;
     private final int damage;
@@ -15,6 +19,11 @@ public abstract class Enemy {
     private int y;
     private int size;
 
+    /**
+     * @param imageRepresentation obrazok nepriatela
+     * @param maxHealth           max zivoty nepriatela
+     * @param damage              body utoku nepriatela
+     */
     public Enemy(BufferedImage imageRepresentation, int maxHealth, int damage) {
         this.imageRepresentation = imageRepresentation;
         this.health = maxHealth;
@@ -22,12 +31,24 @@ public abstract class Enemy {
         this.takingDamage = false;
     }
 
+    /**
+     * Vyhradene paramentre do metody aby sa nastavili iba vtedy ked je to potrebene
+     *
+     * @param x    x pozicia
+     * @param y    y pozicia
+     * @param size velkost obrazka
+     */
     public void setImageLocation(int x, int y, int size) {
         this.x = x;
         this.y = y;
         this.size = size;
     }
 
+    /**
+     * Metoda vykresli obrazok nepriatela a jeho zivoty
+     *
+     * @param g2D java trieda na kreslenie objektov
+     */
     public void drawEnemy(Graphics2D g2D) {
         g2D.drawImage(
             this.imageRepresentation,
@@ -56,19 +77,15 @@ public abstract class Enemy {
         }
     }
 
-    public BufferedImage getImageRepresentation() {
-        return this.imageRepresentation;
-    }
-
-
-    public int dealDamage() {
-        return this.getDamage();
-    }
-
     public int getDamage() {
         return this.damage;
     }
 
+    /**
+     * Odcita parameter od zivotov iba ak zivoty su v kladnych hodnotach
+     *
+     * @param takenDamage body utoku hraca na nepriatela
+     */
     public void takeDamage(int takenDamage) {
         if (this.health >= 0) {
             this.health -= takenDamage;
@@ -83,11 +100,11 @@ public abstract class Enemy {
         this.health = health;
     }
 
+    /**
+     * @param player hrac na ktorom sa vykona specialny utok
+     */
     public abstract void makeSpecialAttack(Player player);
 
-    public boolean isTakingDamage() {
-        return this.takingDamage;
-    }
 
     public void setTakingDamage(boolean takingDamage) {
         this.takingDamage = takingDamage;

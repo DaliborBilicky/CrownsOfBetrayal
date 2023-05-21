@@ -10,11 +10,23 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
+/**
+ * Trieda na obalenie java JFrame ktory zobrazi okno
+ */
 public class Frame {
+    /**
+     * Konstanta pre nadpis okna
+     */
     private static final String TITLE = "Crowns Of Betrayal";
     private final Panel panel;
 
+    /**
+     * Konstruktor nastavuje okno tak ako potrebujem
+     *
+     * @param game hlavna trieda hra aby som ju pridal do panelu lebo je zapuzdreny
+     */
     public Frame(Game game) {
+        // kod z internetu vygoolgy som ako dat JFrame na full screen
         GraphicsDevice device = GraphicsEnvironment
             .getLocalGraphicsEnvironment().getScreenDevices()[0];
         JFrame frame = new JFrame();
@@ -31,7 +43,7 @@ public class Frame {
         frame.add(this.panel);
         frame.pack();
         this.panel.requestFocus();
-        // kod z internetu cisto len pre dobry pocit 
+        // kod z internetu cisto len pre dobry pocit. Vygoogly som ako zmenit cursor
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = new ImageReader()
             .getBufferedImage("res/cursor.png");
@@ -40,6 +52,9 @@ public class Frame {
         frame.setCursor(cursor);
     }
 
+    /**
+     * Metoda pre zapuzdrenie Panelu
+     */
     public void repaintPanel() {
         this.panel.repaint();
     }

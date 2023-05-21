@@ -13,15 +13,28 @@ import dalibor.crownsofbetrayal.states.gameStates.WorldMap;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
+/**
+ * Trieda kde sa vykonavaju vsetky ukony programu
+ */
 public class Game implements Runnable {
+    /**
+     * Konstany pre nastavenie velkosti okna
+     */
     private static final int EXPECTED_WINDOW_WIDTH = 1920;
-    private static final int EXPECTED_WINDOW_HEIGHT = 1080;
+    // zistovanie presnych rozmerov mam z minulej semestralky
     private static final int WINDOW_WIDTH =
         (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private static final int WINDOW_HEIGHT =
         (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    /**
+     * FPS kolko krat sa ma obnovovat vykreslovanie
+     * UPS kolko krat sa ma updatovat hra
+     */
     private static final int FPS = 30;
     private static final int UPS = 60;
+    /**
+     * Reprezentacia sekundy pre lepsiu pracu v kode
+     */
     private static final double SECOND_IN_NANOSECOND = 1000000000.0;
     private static final int SECOND_IN_MILLISECOND = 1000;
     private final CurrentState currentState;
@@ -36,6 +49,9 @@ public class Game implements Runnable {
     private final double scale;
     private final Dungeon dungeon;
 
+    /**
+     * Incializacia vsetkych komponentov v hre
+     */
     public Game() {
         this.scale = (double)EXPECTED_WINDOW_WIDTH / WINDOW_WIDTH;
 
@@ -53,11 +69,19 @@ public class Game implements Runnable {
         this.frame = new Frame(this);
     }
 
+    /**
+     * Spusti game loop
+     */
     public void startGameLoop() {
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
 
+    /**
+     * Metoda zapezpecuje spravne obnovovanie hry
+     * upravena verzia z minulej semestralky
+     * !!!Dopomoc internetom link v dokumentacii na video!!!
+     */
     @Override
     public void run() {
         double timePerFrame = SECOND_IN_NANOSECOND / FPS;
@@ -99,6 +123,9 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Switch ktory podla aktulaneho statu updatuje len ten spravny
+     */
     private void update() {
         switch (this.currentState.getState()) {
             case MENU -> this.menu.update();
@@ -111,6 +138,9 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Switch ktory podla aktulaneho statu vykresluje len ten spravny
+     */
     public void render(Graphics2D g2D) {
         switch (this.currentState.getState()) {
             case MENU -> this.menu.draw(g2D);

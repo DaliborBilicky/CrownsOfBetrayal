@@ -6,8 +6,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+/**
+ * Vyhradena trieda aby sa lepsie nacitali obrazky
+ */
 public class ImageReader {
 
+    /**
+     * @param imagePath cesta k obrazku
+     * @return nacitany obrazok
+     */
     public BufferedImage getBufferedImage(String imagePath) {
         BufferedImage readImage = null;
         try {
