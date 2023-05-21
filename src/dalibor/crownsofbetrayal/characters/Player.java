@@ -66,7 +66,7 @@ public class Player {
 
     public void setQuests() {
         for (int i = 0; i < this.questBook.length; i++) {
-            this.questBook[i] = new Quest(this, 0);
+            this.questBook[i] = new Quest();
         }
     }
 
@@ -82,14 +82,21 @@ public class Player {
     public void removeDoneQuests() {
         for (int i = 0; i < this.questBook.length; i++) {
             if (this.questBook[i].isDone()) {
-                this.questBook[i].giveReward();
-                this.questBook[i] = new Quest(this, 0);
+                this.gainGold(this.questBook[i].getReward());
+                this.questBook[i] = new Quest();
             }
         }
     }
 
+    /**
+     * @param numOfCoins pocet minci ktore sa pripocitaju
+     */
+    public void gainGold(int numOfCoins) {
+        this.goldCoins += numOfCoins;
+    }
+
     public void removeQuest(int index) {
-        this.questBook[index] = new Quest(this, 0);
+        this.questBook[index] = new Quest();
     }
 
     public Quest getQuest(int index) {
@@ -186,7 +193,6 @@ public class Player {
         return INVENTORY_CAPACITY;
     }
 
-
     public int getHealth() {
         return this.health;
     }
@@ -276,14 +282,6 @@ public class Player {
     public void setWeapon(Item weapon) {
         this.weapon = weapon;
     }
-
-    /**
-     * @param numOfCoins pocet minci ktore sa pripocitaju
-     */
-    public void gainGold(int numOfCoins) {
-        this.goldCoins += numOfCoins;
-    }
-
 
     /**
      * @param numOfCoins pocet minci ktore sa odcitaju

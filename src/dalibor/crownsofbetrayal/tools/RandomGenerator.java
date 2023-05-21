@@ -111,11 +111,11 @@ public class RandomGenerator {
     public Quest getQuest(Player player) {
         int probability = this.random.nextInt(1, 101);
         if (0 <= probability && probability < 34) {
-            return new KillingQuest(player);
+            return new KillingQuest();
         } else if (34 <= probability && probability < 68) {
-            return new ItemCollectionQuest(player);
+            return new ItemCollectionQuest();
         } else {
-            return new DungeonVisitingQuest(player);
+            return new DungeonVisitingQuest();
         }
     }
 }

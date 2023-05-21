@@ -295,7 +295,7 @@ public class Pub extends State {
                     }
                 } else {
                     this.getPlayer().setNewQuest(this.pubQuests[i]);
-                    this.pubQuests[i] = new Quest(this.getPlayer(), 0);
+                    this.pubQuests[i] = new Quest();
                 }
             }
         }

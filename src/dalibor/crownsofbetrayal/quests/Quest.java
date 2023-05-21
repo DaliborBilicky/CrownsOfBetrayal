@@ -1,26 +1,35 @@
 package dalibor.crownsofbetrayal.quests;
 
-import dalibor.crownsofbetrayal.characters.Player;
-
+/**
+ * Trieda quest od ktorej dedia specialne typy questov
+ * taktiez sluzi na predijdenie null pointer chybe
+ */
 public class Quest {
-    private final Player player;
+    private final int reward;
+    private final String description;
     private boolean done;
-    private int reward;
-    private String description;
 
-    public Quest(Player player, int reward) {
-        this.player = player;
+
+    /**
+     * @param reward mince za dokonceny quest
+     */
+    public Quest(int reward) {
         this.reward = reward;
+        this.description = "No quest";
+        this.done = false;
+    }
+
+    /**
+     * Bezparametricky konstruktor
+     */
+    public Quest() {
+        this.reward = 0;
         this.description = "No quest";
         this.done = false;
     }
 
     public String getDescription() {
         return this.description;
-    }
-
-    public void giveReward() {
-        this.player.gainGold(this.reward);
     }
 
     public boolean isDone() {
