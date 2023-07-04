@@ -124,6 +124,7 @@ public class Game implements Runnable {
             case WORLD_MAP -> this.worldMap.update();
             case QUESTS -> this.quests.update();
             case DUNGEON -> this.dungeon.update();
+            case QUIT -> System.exit(0);
         }
     }
 
@@ -139,6 +140,7 @@ public class Game implements Runnable {
             case WORLD_MAP -> this.worldMap.draw(g2D);
             case QUESTS -> this.quests.draw(g2D);
             case DUNGEON -> this.dungeon.draw(g2D);
+            case QUIT -> System.exit(0);
         }
     }
 

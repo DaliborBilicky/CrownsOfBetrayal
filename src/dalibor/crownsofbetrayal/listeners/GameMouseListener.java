@@ -37,6 +37,7 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
                 this.panel.getGame().getWorldMap().mouseClicked(e);
             case QUESTS -> this.panel.getGame().getQuests().mouseClicked(e);
             case DUNGEON -> this.panel.getGame().getDungeon().mouseClicked(e);
+            case QUIT -> System.exit(0);
         }
     }
 
@@ -81,6 +82,7 @@ public class GameMouseListener implements MouseListener, MouseMotionListener {
             case WORLD_MAP -> this.panel.getGame().getWorldMap().mouseMoved(e);
             case QUESTS -> this.panel.getGame().getQuests().mouseMoved(e);
             case DUNGEON -> this.panel.getGame().getDungeon().mouseMoved(e);
+            case QUIT -> System.exit(0);
         }
     }
 }
